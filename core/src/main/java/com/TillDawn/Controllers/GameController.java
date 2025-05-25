@@ -7,12 +7,14 @@ import com.TillDawn.Models.GameAssetManager;
 import com.TillDawn.Models.Weapon;
 import com.TillDawn.Views.GameView;
 import com.TillDawn.Views.WinMenuView;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 
 public class GameController {
     private GameView view;
     private PlayerController playerController;
     private WorldController worldController;
     private WeaponController weaponController;
+    private OrthographicCamera camera;
 
     private final Game game;
 
@@ -20,11 +22,12 @@ public class GameController {
         this.game = game;
     }
 
-    public void setView(GameView view) {
+    public void setView(GameView view, OrthographicCamera camera) {
         this.view = view;
-        playerController = new PlayerController(game.getPlayer());
-        worldController = new WorldController(playerController);
-        weaponController = new WeaponController(new Weapon());
+        this.camera = camera;
+        playerController = new PlayerController(game.getPlayer(), camera);
+        worldController = new WorldController(playerController, camera);
+        weaponController = new WeaponController(game.getWeapon());
     }
 
     public void updateGame(){

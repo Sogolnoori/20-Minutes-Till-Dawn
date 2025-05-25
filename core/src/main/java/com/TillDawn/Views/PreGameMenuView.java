@@ -5,7 +5,6 @@ import com.TillDawn.Main;
 import com.TillDawn.Models.GameAssetManager;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.utils.Array;
@@ -47,9 +46,9 @@ public class PreGameMenuView implements Screen {
         selectHero.setItems(GameAssetManager.getGameAssetManager().getHeroes().toArray(new String[0]));
 
         Array<String> weapons = new Array<>();
-        weapons.add("Revolver");
-        weapons.add("Shotgun");
-        weapons.add("SⅯGs Ⅾuaⅼ");
+        weapons.add("REVOLVER");
+        weapons.add("SHOTGUN");
+        weapons.add("SⅯG");
         selectWeapon.setItems(weapons);
 
         Array<String> times = new Array<>();

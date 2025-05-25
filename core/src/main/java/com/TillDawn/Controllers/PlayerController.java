@@ -1,7 +1,7 @@
 package com.TillDawn.Controllers;
 
-import com.TillDawn.Main;
 import com.TillDawn.Models.GameAssetManager;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.TillDawn.Models.Player;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -10,13 +10,14 @@ import com.badlogic.gdx.graphics.g2d.*;
 
 public class PlayerController {
     private Player player;
+    private OrthographicCamera camera;
 
-    public PlayerController(Player player) {
+    public PlayerController(Player player, OrthographicCamera camera) {
         this.player = player;
+        this.camera = camera;
     }
 
     public void update() {
-        player.getPlayerSprite().draw(Main.getBatch());
 
         if(player.isPlayerIdle()){
             idleAnimation();
@@ -26,18 +27,20 @@ public class PlayerController {
 
     public void handlePlayerInput() {
         if(Gdx.input.isKeyPressed(Input.Keys.W)){
-            player.setPosY(player.getPosY() - player.getSpeed());
-        }
-        if(Gdx.input.isKeyPressed(Input.Keys.D)){
-            player.setPosX(player.getPosX() - player.getSpeed());
-        }
-        if(Gdx.input.isKeyPressed(Input.Keys.S)){
             player.setPosY(player.getPosY() + player.getSpeed());
         }
-        if(Gdx.input.isKeyPressed(Input.Keys.A)){
+        if(Gdx.input.isKeyPressed(Input.Keys.D)){
             player.setPosX(player.getPosX() + player.getSpeed());
+        }
+        if(Gdx.input.isKeyPressed(Input.Keys.S)){
+            player.setPosY(player.getPosY() - player.getSpeed());
+        }
+        if(Gdx.input.isKeyPressed(Input.Keys.A)){
+            player.setPosX(player.getPosX() - player.getSpeed());
             player.getPlayerSprite().flip(true, false);
         }
+        player.getPlayerSprite().setPosition(player.getPosX(), player.getPosY());
+
     }
 
     public void idleAnimation() {

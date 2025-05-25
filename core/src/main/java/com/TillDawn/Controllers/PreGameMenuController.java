@@ -27,12 +27,16 @@ public class PreGameMenuController {
     public Game setUpNewGame(){
 
         Game game = new Game();
+
+        //Hero
         for (int i = 0; i < GameAssetManager.getGameAssetManager().getHeroes().size(); i++) {
             if(GameAssetManager.getGameAssetManager().getHeroes().get(i).equals(view.getSelectHero().getSelected())){
                 game.getPlayer().setHero(i);
                 break;
             }
         }
+
+        //Time
         float[] time = {2, 5, 10, 20};
         Array<String> times = new Array<>();
         times.add("2 minutes");
@@ -41,12 +45,23 @@ public class PreGameMenuController {
         times.add("20 minutes");
         for (int i = 0; i < time.length; i++) {
             if(times.get(i).equals(view.getSelectTime().getSelected())){
-                game.setTime(5);
+                game.setTime(500000);
 //                game.setTime(time[i] * 60);
 
                 break;
             }
         }
+
+        //Weapon
+
+        for (int i = 0; i < GameAssetManager.getGameAssetManager().getWeapons().size(); i++) {
+            if(GameAssetManager.getGameAssetManager().getWeapons().get(i).equals(view.getSelectWeapon().getSelected())){
+                game.getWeapon().setWeaponType(i);
+                break;
+            }
+        }
+
+
         App.getCurrentUser().setCurrentGame(game);
         return game;
     }

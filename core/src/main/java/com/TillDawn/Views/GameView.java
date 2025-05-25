@@ -3,10 +3,13 @@ package com.TillDawn.Views;
 import com.TillDawn.Controllers.GameController;
 import com.TillDawn.Main;
 import com.TillDawn.Models.App;
+import com.TillDawn.Models.GameAssetManager;
+import com.TillDawn.Models.Player;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.utils.ScreenUtils;
@@ -18,22 +21,25 @@ public class GameView implements Screen,  InputProcessor {
     private Stage stage;
     private final GameController controller;
 
-    private OrthographicCamera camera;
+    private final Texture backgroundTexture;
+
+    private final OrthographicCamera camera;
     private Viewport viewport;
 
     public GameView(GameController controller, Skin skin) {
         this.controller = controller;
-        controller.setView(this);
+        this.camera = new OrthographicCamera((float)Gdx.graphics.getWidth(), (float)Gdx.graphics.getHeight());
+        this.backgroundTexture = new Texture("background.png");
+        controller.setView(this, camera);
     }
 
     @Override
     public void show() {
         stage = new Stage(new ScreenViewport());
-
-        camera = new OrthographicCamera();
         viewport = new FitViewport(800, 480, camera); // یا اندازه دلخواه
         viewport.apply();
-        camera.position.set(viewport.getWorldWidth() / 2, viewport.getWorldHeight() / 2, 0);
+        camera.position.set(viewport.getWorldWidth() / 2f, viewport.getWorldHeight() / 2f, 0);
+        camera.update();
 
         Gdx.input.setInputProcessor(this);
     }
@@ -41,27 +47,34 @@ public class GameView implements Screen,  InputProcessor {
     @Override
     public void render(float v) {
         App.getCurrentGame().reduceTime(v);
-        camera.position.set(App.getCurrentGame().getPlayer().getX(), App.getCurrentGame().getPlayer().getY(), 0);
-        camera.update();
-
-// ست کردن دوربین به SpriteBatch
-        batch.setProjectionMatrix(camera.combined);
-
-        batch.begin();
-// رسم نقشه، پلیر، دشمن‌ها و ...
-        batch.end();
 
         ScreenUtils.clear(0, 0, 0, 1);
+
+        Player player = App.getCurrentGame().getPlayer();
+        camera.position.set(
+            player.getPosX() + player.getPlayerSprite().getWidth() / 2.0F,
+            player.getPosY() + player.getPlayerSprite().getHeight() / 2.0F, 0.0F);
+        camera.update();
+
+        Main.getBatch().setProjectionMatrix(camera.combined);
+
         Main.getBatch().begin();
+
+        Main.getBatch().draw(backgroundTexture, 0, 0);
+
         controller.updateGame();
+
+
+        player.getPlayerSprite().draw(Main.getBatch());
+
+//        stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
+//        stage.draw();
         Main.getBatch().end();
-        stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
-        stage.draw();
     }
 
     @Override
-    public void resize(int i, int i1) {
-
+    public void resize(int width, int height) {
+        viewport.update(width, height);
     }
 
     @Override

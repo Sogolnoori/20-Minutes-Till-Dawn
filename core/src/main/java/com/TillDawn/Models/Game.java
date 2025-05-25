@@ -2,6 +2,7 @@ package com.TillDawn.Models;
 
 public class Game {
     private final Player player = new Player();
+    private final Weapon weapon = new Weapon();
     private float time;
 
     public Player getPlayer() {
@@ -17,5 +18,9 @@ public class Game {
     }
     public void reduceTime(float time){
         this.time -= time;
+    }
+
+    public Weapon getWeapon() {
+        return weapon;
     }
 }

@@ -29,8 +29,16 @@ public class GameAssetManager {
         }
     }
 
-    private final String smg = "smg/SMGStill.png";
-    private final Texture smgTexture = new Texture(smg);
+    private final ArrayList<String> weapons = new ArrayList<>(Arrays.asList("REVOLVER", "SHOTGUN", "SMG"));
+    private final ArrayList<String> weaponImg = new ArrayList<>();
+    private final ArrayList<Texture> weaponTex = new ArrayList<>();
+
+    {
+        for (int i = 0; i < weapons.size(); i ++){
+            weaponImg.add("Weapons/" + weapons.get(i) + "/" + weapons.get(i) + ".png");
+            weaponTex.add(new Texture(weaponImg.get(i)));
+        }
+    }
 
     private final String bullet = "bullet.png";
 
@@ -66,12 +74,16 @@ public class GameAssetManager {
         return heroAnimations;
     }
 
-    public Texture getSmgTexture(){
-        return smgTexture;
+    public ArrayList<String> getWeapons() {
+        return weapons;
     }
 
-    public String getSmg() {
-        return smg;
+    public ArrayList<String> getWeaponImg() {
+        return weaponImg;
+    }
+
+    public ArrayList<Texture> getWeaponTex() {
+        return weaponTex;
     }
 
     public String getBullet(){
