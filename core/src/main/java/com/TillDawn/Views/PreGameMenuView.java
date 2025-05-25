@@ -48,7 +48,7 @@ public class PreGameMenuView implements Screen {
         Array<String> weapons = new Array<>();
         weapons.add("REVOLVER");
         weapons.add("SHOTGUN");
-        weapons.add("SⅯG");
+        weapons.add("SMG");
         selectWeapon.setItems(weapons);
 
         Array<String> times = new Array<>();

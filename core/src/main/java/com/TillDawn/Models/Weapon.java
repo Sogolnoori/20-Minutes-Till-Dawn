@@ -26,8 +26,9 @@ public class Weapon {
         this.type = weapon;
         this.smgTexture = GameAssetManager.getGameAssetManager().getWeaponTex().get(weapon);
         this.smgSprite = new Sprite(smgTexture);
-        smgSprite.setX((float) Gdx.graphics.getWidth() / 2);
-        smgSprite.setY((float) Gdx.graphics.getHeight() / 2);
+        this.smgSprite.setX(App.getCurrentGame().getPlayer().getPosX());
+        this.smgSprite.setY(App.getCurrentGame().getPlayer().getPosY());
+
         smgSprite.setSize(50, 50);
     }
 }

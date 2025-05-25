@@ -1,6 +1,7 @@
 package com.TillDawn.Controllers;
 
 import com.TillDawn.Main;
+import com.TillDawn.Models.App;
 import com.TillDawn.Models.Bullet;
 import com.TillDawn.Models.Weapon;
 import com.badlogic.gdx.Gdx;
@@ -20,15 +21,19 @@ public class WeaponController {
     }
 
     public void update(){
-        weapon.getSmgSprite().draw(Main.getBatch());
+        weapon.getSmgSprite().setX(App.getCurrentGame().getPlayer().getPosX());
+        weapon.getSmgSprite().setY(App.getCurrentGame().getPlayer().getPosY());
         updateBullets();
     }
 
     public void handleWeaponRotation(int x, int y) {
         Sprite weaponSprite = weapon.getSmgSprite();
 
-        float weaponCenterX = (float) Gdx.graphics.getWidth() / 2;
-        float weaponCenterY = (float) Gdx.graphics.getHeight() / 2;
+        float weaponCenterX = App.getCurrentGame().getPlayer().getPosX();
+        float weaponCenterY = App.getCurrentGame().getPlayer().getPosY();
+
+//        float weaponCenterX = (float) Gdx.graphics.getWidth() / 2;
+//        float weaponCenterY = (float) Gdx.graphics.getHeight() / 2;
 
         float angle = (float) Math.atan2(y - weaponCenterY, x - weaponCenterX);
 

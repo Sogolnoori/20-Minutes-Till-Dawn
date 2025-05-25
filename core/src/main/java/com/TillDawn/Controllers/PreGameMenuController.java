@@ -27,6 +27,7 @@ public class PreGameMenuController {
     public Game setUpNewGame(){
 
         Game game = new Game();
+        App.getCurrentUser().setCurrentGame(game);
 
         //Hero
         for (int i = 0; i < GameAssetManager.getGameAssetManager().getHeroes().size(); i++) {
@@ -61,8 +62,6 @@ public class PreGameMenuController {
             }
         }
 
-
-        App.getCurrentUser().setCurrentGame(game);
         return game;
     }
 }

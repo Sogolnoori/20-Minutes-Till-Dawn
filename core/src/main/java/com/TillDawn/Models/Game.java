@@ -1,9 +1,14 @@
 package com.TillDawn.Models;
 
 public class Game {
-    private final Player player = new Player();
-    private final Weapon weapon = new Weapon();
+    private final Player player;
+    private final Weapon weapon;
     private float time;
+
+    public Game() {
+        this.player = new Player();
+        this.weapon = new Weapon();
+    }
 
     public Player getPlayer() {
         return player;

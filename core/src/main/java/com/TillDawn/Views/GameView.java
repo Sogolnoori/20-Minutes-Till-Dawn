@@ -3,6 +3,7 @@ package com.TillDawn.Views;
 import com.TillDawn.Controllers.GameController;
 import com.TillDawn.Main;
 import com.TillDawn.Models.App;
+import com.TillDawn.Models.Game;
 import com.TillDawn.Models.GameAssetManager;
 import com.TillDawn.Models.Player;
 import com.badlogic.gdx.Gdx;
@@ -50,7 +51,8 @@ public class GameView implements Screen,  InputProcessor {
 
         ScreenUtils.clear(0, 0, 0, 1);
 
-        Player player = App.getCurrentGame().getPlayer();
+        Game game = App.getCurrentGame();
+        Player player = game.getPlayer();
         camera.position.set(
             player.getPosX() + player.getPlayerSprite().getWidth() / 2.0F,
             player.getPosY() + player.getPlayerSprite().getHeight() / 2.0F, 0.0F);
@@ -64,7 +66,7 @@ public class GameView implements Screen,  InputProcessor {
 
         controller.updateGame();
 
-
+        game.getWeapon().getSmgSprite().draw(Main.getBatch());
         player.getPlayerSprite().draw(Main.getBatch());
 
 //        stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
