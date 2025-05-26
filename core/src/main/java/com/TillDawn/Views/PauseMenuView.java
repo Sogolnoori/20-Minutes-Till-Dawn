@@ -16,12 +16,14 @@ public class PauseMenuView implements Screen {
     private final PauseMenuController controller;
 
     private final TextButton resumeButton;
+    private final TextButton giveUpButton;
 
     public PauseMenuView(PauseMenuController controller, Skin skin) {
         this.controller = controller;
         this.table = new Table();
 
         this.resumeButton = new TextButton("Resume", skin);
+        this.giveUpButton = new TextButton("Give Up:(", skin);
 
         controller.setView(this);
     }
@@ -34,7 +36,8 @@ public class PauseMenuView implements Screen {
         table.setFillParent(true);
         table.center();
         table.row().pad(10, 0, 10, 0);
-        table.add(resumeButton);
+        table.add(resumeButton).row();
+        table.add(giveUpButton).row();
 
         stage.addActor(table);
     }
@@ -76,5 +79,9 @@ public class PauseMenuView implements Screen {
 
     public TextButton getResumeButton() {
         return resumeButton;
+    }
+
+    public TextButton getGiveUpButton() {
+        return giveUpButton;
     }
 }

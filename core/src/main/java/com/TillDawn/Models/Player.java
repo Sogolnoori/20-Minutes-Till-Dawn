@@ -8,8 +8,8 @@ public class Player {
     private int hero;
     private Texture playerTexture;
     private Sprite playerSprite;
-    private float posX = 100;
-    private float posY = 100;
+    private float posX = 1000;
+    private float posY = 1000;
     private float playerHealth = 100;
     private CollisionRect rect;
     private float time = 0;
@@ -28,7 +28,6 @@ public class Player {
         playerSprite = new Sprite(playerTexture);
         playerSprite.setPosition(this.getPosX(), this.getPosY());
 
-        //playerSprite.setPosition((float) Gdx.graphics.getWidth() / 2, (float) Gdx.graphics.getHeight() / 2);
         playerSprite.setSize(playerTexture.getWidth() * 3, playerTexture.getHeight() * 3);
         rect = new CollisionRect((float) Gdx.graphics.getWidth() / 2, (float) Gdx.graphics.getHeight(), playerTexture.getWidth() * 3, playerTexture.getHeight() * 3);
 

@@ -1,6 +1,8 @@
 package com.TillDawn.Controllers;
 
+import com.TillDawn.Main;
 import com.TillDawn.Models.GameAssetManager;
+import com.TillDawn.Views.PauseMenuView;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.TillDawn.Models.Player;
 import com.badlogic.gdx.Gdx;
@@ -26,6 +28,10 @@ public class PlayerController {
     }
 
     public void handlePlayerInput() {
+        if(Gdx.input.isKeyJustPressed(Input.Keys.P)){
+            Main.getMain().getScreen().dispose();
+            Main.getMain().setScreen(new PauseMenuView(new PauseMenuController(), GameAssetManager.getGameAssetManager().getSkin()));
+        }
         if(Gdx.input.isKeyPressed(Input.Keys.W)){
             player.setPosY(player.getPosY() + player.getSpeed());
         }

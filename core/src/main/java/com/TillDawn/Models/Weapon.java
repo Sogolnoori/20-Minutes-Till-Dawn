@@ -8,7 +8,7 @@ public class Weapon {
     private int type = 0;
     private float x;
     private float y;
-    private  Texture smgTexture;
+    private Texture smgTexture;
     private Sprite smgSprite;
     private int ammo = 30;
 

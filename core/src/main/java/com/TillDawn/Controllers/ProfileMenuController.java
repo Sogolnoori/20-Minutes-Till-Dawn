@@ -7,8 +7,15 @@ import com.TillDawn.Models.Result;
 import com.TillDawn.Models.User;
 import com.TillDawn.Views.MainMenuView;
 import com.TillDawn.Views.ProfileMenuView;
+import com.TillDawn.Views.RegisterMenuView;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 import javax.swing.*;
 
@@ -17,6 +24,47 @@ public class ProfileMenuController {
 
     public void setView(ProfileMenuView view) {
         this.view = view;
+
+        view.getChooseFileButton().addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                onChooseFileClicked();
+            }
+        });
+    }
+
+    public void onChooseFileClicked() {
+        if (Gdx.app.getType() == Application.ApplicationType.Desktop) {
+            SwingUtilities.invokeLater(() -> {
+                java.awt.FileDialog dialog = new java.awt.FileDialog((java.awt.Frame) null, "wooo");
+                dialog.setMode(java.awt.FileDialog.LOAD);
+                dialog.setVisible(true);
+
+                String selectedFile = dialog.getFile();
+                if (selectedFile != null) {
+                    String filePath = dialog.getDirectory() + selectedFile;
+
+                    Gdx.app.postRunnable(() -> {
+                        App.getCurrentUser().setAvatar(filePath);
+
+                        Texture newTexture = new Texture(Gdx.files.internal(filePath));
+                        view.getAvatarImage().setDrawable(new TextureRegionDrawable(new TextureRegion(newTexture)));
+                    });
+                }
+            });
+        }
+
+    }
+
+    private void updateAvatarImage(String path) {
+        // dispose کردن تکسچر قبلی برای جلوگیری از نشت حافظه
+        Drawable drawable = view.getAvatarImage().getDrawable();
+        if (drawable instanceof TextureRegionDrawable) {
+            ((TextureRegionDrawable) drawable).getRegion().getTexture().dispose();
+        }
+
+        Texture newTexture = new Texture(Gdx.files.internal(path));
+        view.getAvatarImage().setDrawable(new TextureRegionDrawable(new TextureRegion(newTexture)));
     }
 
     public void handleButtons() {
@@ -26,28 +74,16 @@ public class ProfileMenuController {
                 view.setMessage(result.getMessage());
                 view.getUpdateButton().setChecked(false);
             }
+            if(view.getDeleteAccountButton().isChecked()){
+                App.users.remove(App.getCurrentUser());
+                App.setCurrentUser(null);
+                Main.getMain().getScreen().dispose();
+                Main.getMain().setScreen(new RegisterMenuView(new RegisterMenuController(), GameAssetManager.getGameAssetManager().getSkin()));
+            }
             if(view.getMainMenuButton().isChecked()){
                 Main.getMain().getScreen().dispose();
                 Main.getMain().setScreen(new MainMenuView(new MainMenuController(), GameAssetManager.getGameAssetManager().getSkin()));
-            }
-            if(view.getChooseFileButton().isChecked()){
-//                if (Gdx.app.getType() == Application.ApplicationType.Desktop) {
-//                    new Thread(() -> {
-//                        java.awt.FileDialog dialog = new java.awt.FileDialog((java.awt.Frame) null, "انتخاب عکس آواتار");
-//                        dialog.setMode(java.awt.FileDialog.LOAD);
-//                        dialog.setVisible(true);
-//
-//                        if (dialog.getFile() != null) {
-//                            String filePath = dialog.getDirectory() + dialog.getFile();
-//
-//                            // حتماً دستورات libGDX در thread خودش اجرا بشه
-//                            Gdx.app.postRunnable(() -> {
-//                                App.getCurrentUser().setAvatar(filePath);
-//                                // اگر نیازه، تصویر جدید رو دوباره load کن و توی UI نشون بده
-//                            });
-//                        }
-//                    }).start();
-//                }
+
             }
         }
     }

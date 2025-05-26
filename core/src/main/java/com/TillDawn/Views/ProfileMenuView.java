@@ -3,21 +3,17 @@ package com.TillDawn.Views;
 import com.TillDawn.Controllers.ProfileMenuController;
 import com.TillDawn.Main;
 import com.TillDawn.Models.App;
-import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import com.sun.org.apache.xml.internal.utils.ListingErrorHandler;
-
-import javax.swing.*;
-import java.util.ArrayList;
 
 public class ProfileMenuView implements Screen {
 
@@ -30,11 +26,14 @@ public class ProfileMenuView implements Screen {
     private final TextField passwordField;
     private final TextButton updateButton;
     private final TextButton mainMenuButton;
+    private final TextButton chooseFileButton;
+    private final TextButton deleteAccountButton;
     private final Label message;
 
     private Image avatarImage;
+    private final TextureRegionDrawable avatarDrawable;
+    private final Container<Image> avatarContainer;
 
-    private TextButton chooseFileButton;
 
 
     public ProfileMenuView(ProfileMenuController controller, Skin skin) {
@@ -45,11 +44,16 @@ public class ProfileMenuView implements Screen {
         this.passwordField = new TextField(App.getCurrentUser().getPassword(), skin);
         this.updateButton = new TextButton("UPDATE", skin);
         this.mainMenuButton = new TextButton("<-", skin);
+        this.deleteAccountButton = new TextButton("DELETE", skin);
         this.message = new Label("", skin);
 
         this.chooseFileButton = new TextButton("CHOOSE FILE", skin);
 
-        this.avatarImage = new Image(new Texture(Gdx.files.internal(App.getCurrentUser().getAvatar())));
+        Texture initialTexture = new Texture(Gdx.files.internal(App.getCurrentUser().getAvatar()));
+        this.avatarDrawable = new TextureRegionDrawable(new TextureRegion(initialTexture));
+        this.avatarImage = new Image(avatarDrawable);
+        this.avatarContainer = new Container<>(avatarImage);
+
 
         this.avatarOptions = new Table();
         this.avatarOptions.center();
@@ -58,12 +62,14 @@ public class ProfileMenuView implements Screen {
             final int index = i;
             Texture texture = new Texture(Gdx.files.internal(App.avatarPaths.get(i)));
             Image image = new Image(texture);
-            avatarOptions.add(image).left();
 
             image.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
                     App.getCurrentUser().setAvatar(App.avatarPaths.get(index));
+                    avatarDrawable.getRegion().getTexture().dispose();
+                    Texture newTexture = new Texture(Gdx.files.internal(App.avatarPaths.get(index)));
+                    avatarDrawable.setRegion(new TextureRegion(newTexture));
                 }
             });
 
@@ -93,14 +99,15 @@ public class ProfileMenuView implements Screen {
         Table rightTable = new Table();
         rightTable.top().center();
 
-        rightTable.add(avatarImage).top().center().size(128).pad(10).row();
+        rightTable.add(avatarContainer).top().center().size(128).pad(10).row();
 
         rightTable.add(avatarOptions).top().center().row();
 
         rightTable.add(chooseFileButton).pad(10).row();
+        rightTable.add(deleteAccountButton).pad(10).row();
 
         table.add(leftTable).expand().left().pad(30);
-        table.add(rightTable).expand().right().pad(300).top();
+        table.add(rightTable).expand().right().padTop(150).padRight(200).top();
 
 
         stage.addActor(table);
@@ -156,6 +163,10 @@ public class ProfileMenuView implements Screen {
 
     public TextButton getMainMenuButton() {
         return mainMenuButton;
+    }
+
+    public TextButton getDeleteAccountButton() {
+        return deleteAccountButton;
     }
 
     public TextButton getChooseFileButton() {
