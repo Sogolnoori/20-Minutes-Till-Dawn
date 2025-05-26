@@ -5,9 +5,11 @@ import com.TillDawn.Models.App;
 import com.TillDawn.Models.Bullet;
 import com.TillDawn.Models.Weapon;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 
 import javax.swing.*;
 import java.util.ArrayList;
@@ -15,33 +17,41 @@ import java.util.ArrayList;
 public class WeaponController {
     private Weapon weapon;
     private ArrayList<Bullet> bullets = new ArrayList<>();
+    private OrthographicCamera camera;
 
-    public WeaponController(Weapon weapon) {
+
+    public WeaponController(Weapon weapon, OrthographicCamera camera) {
         this.weapon = weapon;
+        this.camera = camera;
     }
 
     public void update(){
-        weapon.getSmgSprite().setX(App.getCurrentGame().getPlayer().getPosX());
-        weapon.getSmgSprite().setY(App.getCurrentGame().getPlayer().getPosY());
+        weapon.setX(App.getCurrentGame().getPlayer().getPosX() + 30);
+        weapon.setY(App.getCurrentGame().getPlayer().getPosY() + 30);
+        weapon.getSmgSprite().setX(weapon.getX());
+        weapon.getSmgSprite().setY(weapon.getY());
         updateBullets();
     }
 
-    public void handleWeaponRotation(int x, int y) {
+    public void handleWeaponRotation(int screenX, int screenY) {
+        Vector3 worldCoords = new Vector3(screenX, screenY, 0);
+        camera.unproject(worldCoords);
+
+        float mouseX = worldCoords.x;
+        float mouseY = worldCoords.y;
+
         Sprite weaponSprite = weapon.getSmgSprite();
+        float weaponCenterX = weapon.getX() + weaponSprite.getWidth() / 2f;
+        float weaponCenterY = weapon.getY() + weaponSprite.getHeight() / 2f;
 
-        float weaponCenterX = App.getCurrentGame().getPlayer().getPosX();
-        float weaponCenterY = App.getCurrentGame().getPlayer().getPosY();
+        float angleDeg = (float) Math.toDegrees(Math.atan2(mouseY - weaponCenterY, mouseX - weaponCenterX));
 
-//        float weaponCenterX = (float) Gdx.graphics.getWidth() / 2;
-//        float weaponCenterY = (float) Gdx.graphics.getHeight() / 2;
-
-        float angle = (float) Math.atan2(y - weaponCenterY, x - weaponCenterX);
-
-        weaponSprite.setRotation((float) (Math.PI - angle * MathUtils.radiansToDegrees));
+        weaponSprite.setOriginCenter();
+        weaponSprite.setRotation(angleDeg);
     }
 
     public void handleWeaponShoot(int x, int y){
-        bullets.add(new Bullet(x, y));
+        bullets.add(new Bullet(weapon.getX(), weapon.getY(), x, y));
         weapon.setAmmo(weapon.getAmmo() - 1);
     }
 

@@ -6,6 +6,8 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 
 public class Weapon {
     private int type = 0;
+    private float x;
+    private float y;
     private  Texture smgTexture;
     private Sprite smgSprite;
     private int ammo = 30;
@@ -26,9 +28,27 @@ public class Weapon {
         this.type = weapon;
         this.smgTexture = GameAssetManager.getGameAssetManager().getWeaponTex().get(weapon);
         this.smgSprite = new Sprite(smgTexture);
-        this.smgSprite.setX(App.getCurrentGame().getPlayer().getPosX());
-        this.smgSprite.setY(App.getCurrentGame().getPlayer().getPosY());
+        this.x = App.getCurrentGame().getPlayer().getPosX();
+        this.y = App.getCurrentGame().getPlayer().getPosY();
+        this.smgSprite.setX(x);
+        this.smgSprite.setY(y);
 
         smgSprite.setSize(50, 50);
+    }
+
+    public float getX() {
+        return x;
+    }
+
+    public void setX(float x) {
+        this.x = x;
+    }
+
+    public float getY() {
+        return y;
+    }
+
+    public void setY(float y) {
+        this.y = y;
     }
 }

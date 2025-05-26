@@ -27,7 +27,7 @@ public class GameController {
         this.camera = camera;
         playerController = new PlayerController(game.getPlayer(), camera);
         worldController = new WorldController(playerController, camera);
-        weaponController = new WeaponController(game.getWeapon());
+        weaponController = new WeaponController(game.getWeapon(), camera);
     }
 
     public void updateGame(){

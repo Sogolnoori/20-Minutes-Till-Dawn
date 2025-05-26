@@ -37,7 +37,7 @@ public class GameView implements Screen,  InputProcessor {
     @Override
     public void show() {
         stage = new Stage(new ScreenViewport());
-        viewport = new FitViewport(800, 480, camera); // یا اندازه دلخواه
+        viewport = new FitViewport(1600, 960, camera); // یا اندازه دلخواه
         viewport.apply();
         camera.position.set(viewport.getWorldWidth() / 2f, viewport.getWorldHeight() / 2f, 0);
         camera.update();
@@ -62,7 +62,7 @@ public class GameView implements Screen,  InputProcessor {
 
         Main.getBatch().begin();
 
-        Main.getBatch().draw(backgroundTexture, 0, 0);
+        Main.getBatch().draw(backgroundTexture, 0, 0, backgroundTexture.getWidth() * 0.25f, backgroundTexture.getHeight() * 0.25f);
 
         controller.updateGame();
 
