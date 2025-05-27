@@ -83,7 +83,6 @@ public class ProfileMenuController {
             if(view.getMainMenuButton().isChecked()){
                 Main.getMain().getScreen().dispose();
                 Main.getMain().setScreen(new MainMenuView(new MainMenuController(), GameAssetManager.getGameAssetManager().getSkin()));
-
             }
         }
     }

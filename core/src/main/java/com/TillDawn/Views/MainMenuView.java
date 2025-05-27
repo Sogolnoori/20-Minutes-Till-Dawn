@@ -64,7 +64,7 @@ public class MainMenuView implements Screen {
         leftTable.add(profileButton).left().pad(10).row();
         leftTable.add(scoreBoardButton).left().pad(10).row();
         leftTable.add(hintMenuButton).left().pad(10).row();
-        leftTable.add(settingsButton).left();
+        leftTable.add(settingsButton).left().pad(10).row();
 
         Texture avatarTexture = new Texture(Gdx.files.internal(App.getCurrentUser().getAvatar()));
         Image avatarImage = new Image(avatarTexture);
