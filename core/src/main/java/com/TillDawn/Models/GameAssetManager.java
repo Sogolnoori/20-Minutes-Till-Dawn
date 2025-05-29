@@ -126,4 +126,20 @@ public class GameAssetManager {
     public ArrayList<Music> getMusics() {
         return musics;
     }
+
+    public ArrayList<String> getMonsters() {
+        return monsters;
+    }
+
+    public ArrayList<String>[] getMonsterIdles() {
+        return monsterIdles;
+    }
+
+    public ArrayList<Texture>[] getMonsterTex() {
+        return monsterTex;
+    }
+
+    public ArrayList<Animation<Texture>> getMonsterAnimations() {
+        return monsterAnimations;
+    }
 }

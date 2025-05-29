@@ -11,12 +11,15 @@ public class CollisionRect {
         this.height = height;
     }
 
-    public void move(float x, float y) {
-        this.x += x;
-        this.y += y;
-    }
-
     public boolean collidesWith(CollisionRect rect) {
         return x < rect.x + rect.width && y  < rect.y + rect.height && x + width > rect.x && y + height > rect.y;
+    }
+
+    public void setX(float x) {
+        this.x = x;
+    }
+
+    public void setY(float y) {
+        this.y = y;
     }
 }

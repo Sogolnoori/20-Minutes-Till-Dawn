@@ -5,18 +5,20 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
 public class Bullet {
-    private Texture texture = new Texture(GameAssetManager.getGameAssetManager().getBullet());
-    private Sprite sprite = new Sprite(texture);
-    private int damage = 5;
+    private final Texture texture = new Texture(GameAssetManager.getGameAssetManager().getBullet());
+    private final Sprite sprite = new Sprite(texture);
+    private CollisionRect rect;
+    private final int damage = 5;
     private int x;
     private int y;
 
     public Bullet(float xStart, float yStart, int x, int y){
-        sprite.setSize(20 , 20);
+        this.sprite.setSize(20 , 20);
         this.x = x;
         this.y = y;
-        sprite.setX(xStart);
-        sprite.setY(yStart);
+        this.sprite.setX(xStart);
+        this.sprite.setY(yStart);
+        this.rect = new CollisionRect(x, y, texture.getWidth() * 3, texture.getHeight() * 3);
     }
 
     public Texture getTexture() {
@@ -37,5 +39,9 @@ public class Bullet {
 
     public int getY() {
         return y;
+    }
+
+    public CollisionRect getRect() {
+        return rect;
     }
 }

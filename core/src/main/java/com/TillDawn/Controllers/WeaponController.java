@@ -20,8 +20,9 @@ public class WeaponController {
     private OrthographicCamera camera;
 
 
-    public WeaponController(Weapon weapon, OrthographicCamera camera) {
+    public WeaponController(Weapon weapon, ArrayList<Bullet> bullets, OrthographicCamera camera) {
         this.weapon = weapon;
+        this.bullets = bullets;
         this.camera = camera;
     }
 

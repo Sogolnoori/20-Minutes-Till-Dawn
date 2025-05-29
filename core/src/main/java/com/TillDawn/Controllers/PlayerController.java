@@ -20,7 +20,6 @@ public class PlayerController {
     }
 
     public void update() {
-
         if(player.isPlayerIdle()){
             idleAnimation();
         }
@@ -28,10 +27,7 @@ public class PlayerController {
     }
 
     public void handlePlayerInput() {
-        if(Gdx.input.isKeyJustPressed(Input.Keys.P)){
-            Main.getMain().getScreen().dispose();
-            Main.getMain().setScreen(new PauseMenuView(new PauseMenuController(), GameAssetManager.getGameAssetManager().getSkin()));
-        }
+
         if(Gdx.input.isKeyPressed(Input.Keys.W)){
             player.setPosY(player.getPosY() + player.getSpeed());
         }

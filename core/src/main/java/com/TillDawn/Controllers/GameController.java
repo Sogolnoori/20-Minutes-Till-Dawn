@@ -1,12 +1,12 @@
 package com.TillDawn.Controllers;
 
 import com.TillDawn.Main;
-import com.TillDawn.Models.App;
-import com.TillDawn.Models.Game;
-import com.TillDawn.Models.GameAssetManager;
-import com.TillDawn.Models.Weapon;
+import com.TillDawn.Models.*;
 import com.TillDawn.Views.GameView;
+import com.TillDawn.Views.PauseMenuView;
 import com.TillDawn.Views.WinMenuView;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 
 public class GameController {
@@ -14,6 +14,7 @@ public class GameController {
     private PlayerController playerController;
     private WorldController worldController;
     private WeaponController weaponController;
+    private MonsterController monsterController;
     private OrthographicCamera camera;
 
     private final Game game;
@@ -27,7 +28,8 @@ public class GameController {
         this.camera = camera;
         playerController = new PlayerController(game.getPlayer(), camera);
         worldController = new WorldController(playerController, camera);
-        weaponController = new WeaponController(game.getWeapon(), camera);
+        weaponController = new WeaponController(game.getWeapon(), game.getBullets(), camera);
+        monsterController = new MonsterController(game.getMonsters(), camera);
     }
 
     public void updateGame(){
@@ -36,9 +38,26 @@ public class GameController {
                 Main.getMain().getScreen().dispose();
                 Main.getMain().setScreen(new WinMenuView(new WinMenuController(), GameAssetManager.getGameAssetManager().getSkin()));
             }
+            if(Gdx.input.isKeyJustPressed(Input.Keys.P)){
+                Main.getMain().getScreen().dispose();
+                Main.getMain().setScreen(new PauseMenuView(new PauseMenuController(), GameAssetManager.getGameAssetManager().getSkin()));
+            }
             worldController.update();
             playerController.update();
             weaponController.update();
+            monsterController.update();
+            killMonsters();
+        }
+    }
+
+    public void killMonsters() {
+        for (Monster monster : game.getMonsters()) {
+            for (Bullet bullet : game.getBullets()) {
+                if(monster.getRect().collidesWith(bullet.getRect())){
+                    //hala chi??
+                    // na mikham bedoonam halla chiiii
+                }
+            }
         }
     }
 
