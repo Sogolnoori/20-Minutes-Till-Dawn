@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
 public class Monster {
-    private final float speed;
+    private float speed;
     private final int monster;
     private final MonsterEnum monsterEnum;
     private Texture monsterTexture;
@@ -101,6 +101,10 @@ public class Monster {
 
     public float getSpeed() {
         return speed;
+    }
+
+    public void setSpeed(float speed) {
+        this.speed = speed;
     }
 
     public void reduceHealth(int amount) {

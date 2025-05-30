@@ -116,6 +116,21 @@ public class GameView implements Screen,  InputProcessor {
         Main.getBatch().end();
 
 
+        if(game.getMonsterSpawner().isBossSpawned()){
+            BossRect bossRect = game.getMonsterSpawner().getBossRect();
+            ShapeRenderer shapeRenderer = new ShapeRenderer();
+
+            shapeRenderer.setProjectionMatrix(camera.combined);
+
+            shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+            shapeRenderer.setColor(Color.valueOf("4A6274"));
+
+            shapeRenderer.rect(bossRect.getX(), bossRect.getY(), bossRect.getWidth(), bossRect.getHeight());
+
+            shapeRenderer.end();
+        }
+
+
         float progress = (float) player.getXp() / player.getXpNeeded();
         progress = MathUtils.clamp(progress, 0f, 1f);
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);

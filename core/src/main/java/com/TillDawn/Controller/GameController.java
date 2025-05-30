@@ -136,6 +136,13 @@ public class GameController {
                 break;
             }
         }
+        if(game.getMonsterSpawner().isBossSpawned()){
+            BossRect bossRect = game.getMonsterSpawner().getBossRect();
+            if(bossRect.intersects(game.getPlayer().getRect())){
+                game.getPlayer().reduceHealth();
+                game.getPlayer().setInvisibleTimeLeft(1);
+            }
+        }
     }
 
     public void getDroplets() {
