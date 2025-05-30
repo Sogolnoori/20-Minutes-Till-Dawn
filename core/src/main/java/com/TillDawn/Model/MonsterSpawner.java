@@ -1,8 +1,6 @@
 package com.TillDawn.Model;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -21,6 +19,7 @@ public class MonsterSpawner {
     private final Timer eyeBatTimer;
     private float timeSpent = 0f;
     private final float totalTime;
+    private boolean bossSpawned = false;
 
     public MonsterSpawner(ArrayList<Monster> monsters, ArrayList<Projectile> monsterShots, float totalTime) {
         this.monsters = monsters;
@@ -36,7 +35,6 @@ public class MonsterSpawner {
         tentacleTimer.update(deltaTime);
         eyeBatTimer.update(deltaTime);
 
-
         if (eyeBatTimer.isFinished()) {
             spawnEyeBat();
             eyeBatTimer.reset();
@@ -49,7 +47,8 @@ public class MonsterSpawner {
 
         updateEyeBatShots(deltaTime);
 
-        if (timeSpent * 2 >= totalTime) {
+        if (timeSpent * 2 >= totalTime && !bossSpawned) {
+            spawnBoss();
         }
     }
 
@@ -59,30 +58,39 @@ public class MonsterSpawner {
         }
         int amount = (int) ((timeSpent * 4 - totalTime + 30) / 30);
         for (int i = 0; i < amount; i++) {
-            newMonster(2);
-            shooterTimers.put(monsters.get(monsters.size() - 1), new Timer(6));
+            Monster monster = newMonster(2);
+            monsters.add(monster);
+            shooterTimers.put(monster, new Timer(6));
         }
     }
 
     private void spawnTentacle() {
         int amount = (int) (timeSpent / 30);
         for (int i = 0; i < amount; i++) {
-            newMonster(1);
+            Monster monster = newMonster(1);
+            monsters.add(monster);
         }
     }
 
-    public void newMonster(int type) {
+    public void spawnBoss() {
+        bossSpawned = true;
+        Monster boss = newMonster(3);
+        monsters.add(boss);
+    }
+
+    public Monster newMonster(int type) {
         Random rand = new Random();
+        float width = App.getCurrentGame().getMapWidth() - 100;
+        float height = App.getCurrentGame().getMapHeight() - 100;
         float x, y;
         if (rand.nextBoolean()) {
-            x = App.getCurrentGame().getMapWidth() * rand.nextFloat();
-            y = App.getCurrentGame().getMapHeight() * rand.nextInt(2);
+            x = width * rand.nextFloat();
+            y = height * rand.nextInt(2);
         } else {
-            x = App.getCurrentGame().getMapWidth() * rand.nextInt(2);
-            y = App.getCurrentGame().getMapHeight() * rand.nextFloat();
+            x = width * rand.nextInt(2);
+            y = height * rand.nextFloat();
         }
-        Monster monster = new Monster(type, x, y);
-        monsters.add(monster);
+        return new Monster(type, x, y);
     }
 
     public void updateEyeBatShots(float deltaTime) {

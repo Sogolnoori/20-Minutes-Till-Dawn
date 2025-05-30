@@ -12,12 +12,14 @@ public class Player {
     private float posX = 1000;
     private float posY = 1000;
     private int playerHealth;
+    private int maxHealth;
     private int kills = 0;
     private CollisionRect rect;
     private float time = 0;
     private float speed;
     private int xp = 0;
     private int level = 1;
+    private boolean abilityChosen = true;
     private float invisibleTimeLeft = 0;
 
 
@@ -38,6 +40,7 @@ public class Player {
         rect = new CollisionRect(this.posX, this.posY, playerTexture.getWidth() * 3, playerTexture.getHeight() * 3);
         this.speed = heroEnum.getSpeed();
         this.playerHealth = heroEnum.getHp();
+        this.maxHealth = playerHealth;
     }
 
     public Texture getPlayerTexture() {
@@ -174,6 +177,23 @@ public class Player {
         if(this.xp >= this.getXpNeeded()){
             this.xp -= this.getXpNeeded();
             this.level++;
+            this.abilityChosen = false;
         }
+    }
+
+    public boolean isAbilityChosen() {
+        return abilityChosen;
+    }
+
+    public void setAbilityChosen(boolean abilityChosen) {
+        this.abilityChosen = abilityChosen;
+    }
+
+    public void addMaxHealth() {
+        this.maxHealth ++;
+    }
+
+    public int getMaxHealth() {
+        return maxHealth;
     }
 }

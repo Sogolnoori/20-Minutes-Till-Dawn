@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
 public class Monster {
-    private static final float speed = 0.5f;
+    private final float speed;
     private final int monster;
     private final MonsterEnum monsterEnum;
     private Texture monsterTexture;
@@ -24,6 +24,7 @@ public class Monster {
         this.posX = posX;
         this.posY = posY;
         this.monsterEnum = MonsterEnum.values()[monster];
+        this.speed = monsterEnum.getSpeed();
         this.monsterHealth = monsterEnum.getHp();
         this.monsterTexture = GameAssetManager.getGameAssetManager().getMonsterTex()[this.monster].get(0);
         this.monsterSprite = new Sprite(monsterTexture);
@@ -98,7 +99,7 @@ public class Monster {
         this.time = time;
     }
 
-    public static float getSpeed() {
+    public float getSpeed() {
         return speed;
     }
 

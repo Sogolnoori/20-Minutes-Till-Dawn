@@ -44,9 +44,7 @@ public class MonsterController {
             }
 
             idleAnimation(monster);
-            if(!monster.getMonsterEnum().equals(MonsterEnum.Tree)) {
-                move(monster);
-            }
+            move(monster);
         }
         updateMonsterShots();
     }
@@ -58,8 +56,8 @@ public class MonsterController {
             App.getCurrentGame().getPlayer().getPosY() - monster.getPosY()
         ).nor();
 
-        monster.setPosX(monster.getMonsterSprite().getX() + direction.x * Monster.getSpeed());
-        monster.setPosY(monster.getMonsterSprite().getY() + direction.y * Monster.getSpeed());
+        monster.setPosX(monster.getMonsterSprite().getX() + direction.x * monster.getSpeed());
+        monster.setPosY(monster.getMonsterSprite().getY() + direction.y * monster.getSpeed());
 
         if(monster.getPosX() > App.getCurrentGame().getPlayer().getPosX()){
             monster.getMonsterSprite().flip(true, false);

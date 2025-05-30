@@ -30,7 +30,7 @@ public class ProfileMenuView implements Screen {
     private final TextButton deleteAccountButton;
     private final Label message;
 
-    private Image avatarImage;
+    private final Image avatarImage;
     private final TextureRegionDrawable avatarDrawable;
     private final Container<Image> avatarContainer;
 

@@ -1,6 +1,5 @@
 package com.TillDawn.Controller;
 
-import com.TillDawn.Main;
 import com.TillDawn.Model.*;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -53,13 +52,15 @@ public class WeaponController {
         if(weapon.getAmmo() == 0){
             return;
         }
-        bullets.add(new Projectile(
-            weapon.getX(),
-            weapon.getY(),
-            new Vector2(
-            Gdx.graphics.getWidth() / 2f - xClicked,
-            Gdx.graphics.getHeight() / 2f - yClicked).nor(),
-            GameAssetManager.getGameAssetManager().getBulletTex()));
+        for (int i = 0; i < weapon.getProjectile(); i ++) {
+            Vector2 dir = new Vector2(Gdx.graphics.getWidth() / 2f - xClicked,
+            Gdx.graphics.getHeight() / 2f - yClicked).nor();
+            bullets.add(new Projectile(
+                weapon.getX() - dir.x * 25 * i,
+                weapon.getY() + dir.y * 25 * i,
+                dir,
+                GameAssetManager.getGameAssetManager().getBulletTex()));
+        }
 
         weapon.setAmmo(weapon.getAmmo() - 1);
         if(weapon.getAmmo() == 0 && weapon.isAutoReload()){
@@ -70,7 +71,6 @@ public class WeaponController {
 
     public void updateBullets() {
         for(Projectile b : bullets) {
-            b.getSprite().draw(Main.getBatch());
 
             b.setXPos(b.getSprite().getX() - b.getDirection().x * 5);
             b.setYPos(b.getSprite().getY() + b.getDirection().y * 5);

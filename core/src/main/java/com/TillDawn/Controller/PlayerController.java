@@ -2,20 +2,16 @@ package com.TillDawn.Controller;
 
 import com.TillDawn.Model.Controls;
 import com.TillDawn.Model.GameAssetManager;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.TillDawn.Model.Player;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.*;
 
 public class PlayerController {
     private Player player;
-    private OrthographicCamera camera;
 
-    public PlayerController(Player player, OrthographicCamera camera) {
+    public PlayerController(Player player) {
         this.player = player;
-        this.camera = camera;
     }
 
     public void update() {

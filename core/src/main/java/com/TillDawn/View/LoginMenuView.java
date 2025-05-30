@@ -12,9 +12,9 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 public class LoginMenuView implements Screen {
 
     private Stage stage;
-    private Table table;
+    private final Table table;
 
-    private Label message;
+    private final Label message;
     private final TextField usernameField;
     private final TextField passwordField;
     private final TextButton loginButton;
@@ -96,10 +96,6 @@ public class LoginMenuView implements Screen {
     @Override
     public void dispose() {
 
-    }
-
-    public Label getMessage() {
-        return message;
     }
 
     public void setMessage(String message) {

@@ -20,7 +20,10 @@ public class App {
         }
     }
 
-    public static List<String> avatarPaths = Arrays.asList("avatars/avatar0.png", "avatars/avatar1.png");
+    public static List<String> avatarPaths = Arrays.asList(
+        "avatars/avatar0.png", "avatars/avatar1.png",
+        "avatars/avatar2.png", "avatars/avatar3.png",
+        "avatars/avatar4.png", "avatars/avatar5.png");
 
 
     public static User getCurrentUser() {

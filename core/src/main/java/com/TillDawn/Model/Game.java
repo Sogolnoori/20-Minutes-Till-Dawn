@@ -1,9 +1,11 @@
 package com.TillDawn.Model;
 
+import com.TillDawn.Model.Enum.Ability;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Game {
     private final Sprite backgroundSprite;
@@ -18,6 +20,7 @@ public class Game {
     private final ArrayList<Monster> monsters;
     private final MonsterSpawner monsterSpawner;
     private final ArrayList<Heart> hearts;
+    private final HashMap<Ability, Timer> abilities;
     private float totalTime;
     private float timeSpent;
 
@@ -36,10 +39,11 @@ public class Game {
         this.bullets = new ArrayList<>();
         this.monsterShots = new ArrayList<>();
         this.droplets = new ArrayList<>();
-        this.ammoCounter = new AmmoCounter(weapon.getWeaponEnum().getAmmo());
+        this.ammoCounter = new AmmoCounter(weapon.getMaxAmmo());
         this.monsters = new ArrayList<>();
         this.monsterSpawner = new MonsterSpawner(monsters, monsterShots, time);
         this.hearts = new ArrayList<>();
+        this.abilities = new HashMap<>();
         this.addHearts();
     }
 
@@ -61,6 +65,11 @@ public class Game {
         }
     }
 
+    public void addNewHeart(){
+        hearts.add(new Heart(player.getMaxHealth()));
+        player.addMaxHealth();
+    }
+
     public Player getPlayer() {
         return player;
     }
@@ -79,8 +88,29 @@ public class Game {
 
     public void updateTimeSpent(float time){
         this.timeSpent += time;
+        if(this.timeSpent > totalTime){
+            this.timeSpent = totalTime;
+        }
         player.reduceInvisibleTimeLeft(time);
         monsterSpawner.update(time);
+        updateAbilities(time);
+    }
+
+    public void updateAbilities(float time){
+        for (Ability ability : abilities.keySet()) {
+            Timer timer = abilities.get(ability);
+            if(!timer.isFinished()){
+                timer.update(time);
+                if(timer.isFinished()){
+                    if(ability == Ability.Damager){
+                        this.getWeapon().setDamage((this.getWeapon().getDamage() + 4) * 4 / 5);
+                    }
+                    if(ability == Ability.Speedy){
+                        player.setSpeed(player.getSpeed() / 2);
+                    }
+                }
+            }
+        }
     }
 
     public float getTimeSpent() {
@@ -113,5 +143,13 @@ public class Game {
 
     public ArrayList<Projectile> getDroplets() {
         return droplets;
+    }
+
+    public HashMap<Ability, Timer> getAbilities() {
+        return abilities;
+    }
+
+    public MonsterSpawner getMonsterSpawner() {
+        return monsterSpawner;
     }
 }

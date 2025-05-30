@@ -67,10 +67,11 @@ public class SettingMenuView implements Screen {
             }
         });
 
-        this.upKeyButton = new TextButton("Up: W", skin);
-        this.downKeyButton = new TextButton("Down: S", skin);
-        this.leftKeyButton = new TextButton("Left: A", skin);
-        this.rightKeyButton = new TextButton("Right: D", skin);
+        this.upKeyButton = new TextButton("Up: " + Input.Keys.toString(Controls.get("up")), skin);
+        this.downKeyButton = new TextButton("Down: " + Input.Keys.toString(Controls.get("down")), skin);
+        this.leftKeyButton = new TextButton("Left: " + Input.Keys.toString(Controls.get("left")), skin);
+        this.rightKeyButton = new TextButton("Right: " + Input.Keys.toString(Controls.get("right")), skin);
+
         setUpControllers(skin);
 
 

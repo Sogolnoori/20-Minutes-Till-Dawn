@@ -16,7 +16,7 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 public class ScoreBoardMenuView implements Screen {
 
     private Stage stage;
-    private Table table;
+    private final Table table;
     private final ScoreBoardMenuController controller;
 
     private final Label scoreBoard;

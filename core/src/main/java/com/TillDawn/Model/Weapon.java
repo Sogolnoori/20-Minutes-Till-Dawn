@@ -10,9 +10,11 @@ public class Weapon {
     private float x;
     private float y;
     private Sprite smgSprite;
-    private int fullAmmo;
+    private int maxAmmo;
     private int ammo;
     private boolean autoReload = false;
+    private int damage;
+    private int projectile;
 
     public Sprite getSmgSprite() {
         return smgSprite;
@@ -30,13 +32,15 @@ public class Weapon {
         this.type = weapon;
         this.weaponEnum = WeaponEnum.values()[type];
         this.ammo = weaponEnum.getAmmo();
-        this.fullAmmo = ammo;
+        this.maxAmmo = ammo;
+        this.damage = weaponEnum.getDamage();
         Texture smgTexture = GameAssetManager.getGameAssetManager().getWeaponTex().get(weapon);
         this.smgSprite = new Sprite(smgTexture);
         this.x = 0;
         this.y = 0;
         this.smgSprite.setX(x);
         this.smgSprite.setY(y);
+        this.projectile = weaponEnum.getProjectile();
 
         smgSprite.setSize(50, 50);
     }
@@ -69,7 +73,31 @@ public class Weapon {
         return weaponEnum;
     }
 
+    public int getMaxAmmo(){
+        return maxAmmo;
+    }
+
+    public void setMaxAmmo(int maxAmmo) {
+        this.maxAmmo = maxAmmo;
+    }
+
+    public int getDamage() {
+        return damage;
+    }
+
+    public void setDamage(int damage) {
+        this.damage = damage;
+    }
+
     public void reload() {
-        this.ammo = fullAmmo;
+        this.ammo = maxAmmo;
+    }
+
+    public void addProjectile() {
+        this.projectile ++;
+    }
+
+    public int getProjectile() {
+        return projectile;
     }
 }

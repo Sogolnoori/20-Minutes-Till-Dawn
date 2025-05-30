@@ -2,6 +2,8 @@ package com.TillDawn.View;
 
 import com.TillDawn.Controller.PauseMenuController;
 import com.TillDawn.Main;
+import com.TillDawn.Model.App;
+import com.TillDawn.Model.Enum.Ability;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -87,7 +89,22 @@ public class PauseMenuView implements Screen {
         Table abilityTable = new Table();
 
         abilityTable.row().pad(10, 0, 10, 0);
-        abilityTable.add(abilityLabel).row();
+        abilityTable.add(abilityLabel).padBottom(30).row();
+        if(App.getCurrentGame().getAbilities().containsKey(Ability.Vitality)){
+            abilityTable.add(vitality).row();
+        }
+        if(App.getCurrentGame().getAbilities().containsKey(Ability.Damager)){
+            abilityTable.add(damager).row();
+        }
+        if(App.getCurrentGame().getAbilities().containsKey(Ability.Procrease)){
+            abilityTable.add(procrease).row();
+        }
+        if(App.getCurrentGame().getAbilities().containsKey(Ability.Amocrease)){
+            abilityTable.add(amocrease).row();
+        }
+        if(App.getCurrentGame().getAbilities().containsKey(Ability.Speedy)){
+            abilityTable.add(speedy).row();
+        }
 
         leftTable.row().pad(10, 0, 10, 0);
         leftTable.add(abilityTable).pad(0, 0, 125, 0).top().row();

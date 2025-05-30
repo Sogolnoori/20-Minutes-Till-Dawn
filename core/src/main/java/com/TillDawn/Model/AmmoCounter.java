@@ -9,7 +9,7 @@ public class AmmoCounter {
     private final Sprite totalAmmoSprite;
     private final Sprite backslashSprite;
     private int currentAmmo;
-    private final int totalAmmo;
+    private int totalAmmo;
 
     public AmmoCounter(int ammo) {
         this.ammoSprite = new Sprite(GameAssetManager.getGameAssetManager().getAmmoTex());
@@ -51,5 +51,14 @@ public class AmmoCounter {
     public void setAmmo(int ammo) {
         currentAmmo = ammo;
         currentAmmoSprite.setTexture(GameAssetManager.getGameAssetManager().getNumbers().get(ammo));
+    }
+
+    public void setTotalAmmo(int ammo) {
+        totalAmmo = ammo;
+        totalAmmoSprite.setTexture(GameAssetManager.getGameAssetManager().getNumbers().get(ammo));
+    }
+
+    public int getTotalAmmo() {
+        return totalAmmo;
     }
 }

@@ -12,9 +12,9 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 public class RegisterMenuView implements Screen {
 
     private Stage stage;
-    private Table table;
+    private final Table table;
 
-    private Label message;
+    private final Label message;
     private final TextField usernameField;
     private final TextField passwordField;
     private final TextField securityQuestionField;
@@ -34,7 +34,7 @@ public class RegisterMenuView implements Screen {
         this.usernameField.setMessageText("Username");
         this.passwordField = new TextField("Sogol2005)", skin);
         this.passwordField.setMessageText("Password");
-        this.securityQuestionField = new TextField("avdacdavra", skin);
+        this.securityQuestionField = new TextField("AvdaCdavra", skin);
         this.securityQuestionField.setMessageText("What's your favorite spell?");
         this.registerButton = new TextButton("Register", skin);
         this.loginMenuButton = new TextButton("Login Menu", skin);

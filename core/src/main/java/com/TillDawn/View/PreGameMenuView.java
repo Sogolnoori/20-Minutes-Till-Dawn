@@ -14,7 +14,6 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 public class PreGameMenuView implements Screen {
 
     private Stage stage;
-    private final Label gameTitle;
     private final TextButton playButton;
     private final SelectBox<String> selectHero;
     private final SelectBox<String> selectTime;
@@ -23,7 +22,6 @@ public class PreGameMenuView implements Screen {
     private final PreGameMenuController controller;
 
     public PreGameMenuView(PreGameMenuController controller, Skin skin) {
-        this.gameTitle = new Label("PreGame Menu", skin);
         this.selectHero = new SelectBox<>(skin);
         this.selectWeapon = new SelectBox<>(skin);
         this.selectTime = new SelectBox<>(skin);
