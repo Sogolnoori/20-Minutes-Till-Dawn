@@ -1,8 +1,6 @@
 package com.TillDawn.Controllers;
 
-import com.TillDawn.Main;
 import com.TillDawn.Models.GameAssetManager;
-import com.TillDawn.Views.PauseMenuView;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.TillDawn.Models.Player;
 import com.badlogic.gdx.Gdx;
@@ -42,7 +40,6 @@ public class PlayerController {
             player.getPlayerSprite().flip(true, false);
         }
         player.getPlayerSprite().setPosition(player.getPosX(), player.getPosY());
-
     }
 
     public void idleAnimation() {

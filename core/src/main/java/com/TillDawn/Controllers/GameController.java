@@ -51,12 +51,17 @@ public class GameController {
     }
 
     public void killMonsters() {
-        for (Monster monster : game.getMonsters()) {
+        for (int i = game.getMonsters().size() - 1; i >= 0; i --) {
+            Monster monster = game.getMonsters().get(i);
             for (Bullet bullet : game.getBullets()) {
                 if(monster.getRect().collidesWith(bullet.getRect())){
-                    //hala chi??
-                    // na mikham bedoonam halla chiiii
+                    monsterController.kill(monster);
                 }
+            }
+        }
+        for (Monster monster : game.getMonsters()) {
+            if(monster.getRect().collidesWith(game.getPlayer().getRect())){
+
             }
         }
     }

@@ -20,6 +20,7 @@ public class LoginMenuView implements Screen {
     private final TextButton loginButton;
     private final TextButton forgetPasswordButton;
     private final TextButton startAsGuestButton;
+    private final TextButton registerMenuButton;
 
     private final LoginMenuController controller;
 
@@ -35,6 +36,7 @@ public class LoginMenuView implements Screen {
         this.loginButton = new TextButton("Login", skin);
         this.forgetPasswordButton = new TextButton("Forget Password", skin);
         this.startAsGuestButton = new TextButton("Start as a Guist", skin);
+        this.registerMenuButton = new TextButton("R", skin);
         controller.setView(this);
     }
 
@@ -58,6 +60,7 @@ public class LoginMenuView implements Screen {
         table.add(startAsGuestButton);
 
         stage.addActor(table);
+        stage.addActor(registerMenuButton);
     }
 
     @Override
@@ -121,5 +124,9 @@ public class LoginMenuView implements Screen {
 
     public TextButton getStartAsGuestButton() {
         return startAsGuestButton;
+    }
+
+    public TextButton getRegisterMenuButton() {
+        return registerMenuButton;
     }
 }

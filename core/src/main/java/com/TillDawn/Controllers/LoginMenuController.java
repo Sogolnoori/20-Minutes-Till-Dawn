@@ -8,6 +8,7 @@ import com.TillDawn.Models.User;
 import com.TillDawn.Views.ForgetPasswordMenuView;
 import com.TillDawn.Views.LoginMenuView;
 import com.TillDawn.Views.MainMenuView;
+import com.TillDawn.Views.RegisterMenuView;
 
 
 public class LoginMenuController {
@@ -37,6 +38,10 @@ public class LoginMenuController {
                 Main.getMain().getScreen().dispose();
                 setGuestUser();
                 Main.getMain().setScreen(new MainMenuView(new MainMenuController(), GameAssetManager.getGameAssetManager().getSkin()));
+            }
+            if(view.getRegisterMenuButton().isChecked()){
+                Main.getMain().getScreen().dispose();
+                Main.getMain().setScreen(new RegisterMenuView(new RegisterMenuController(), GameAssetManager.getGameAssetManager().getSkin()));
             }
         }
     }

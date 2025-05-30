@@ -26,7 +26,6 @@ public class Monster {
             this.posY,
             monsterTexture.getWidth() * 2,
             monsterTexture.getHeight() * 2);
-
     }
 
     public Texture getMonsterTexture() {
@@ -51,6 +50,7 @@ public class Monster {
 
     public void setPosX(float posX) {
         this.posX = posX;
+        this.rect.x = this.posX;
     }
 
     public float getPosY() {
@@ -59,6 +59,7 @@ public class Monster {
 
     public void setPosY(float posY) {
         this.posY = posY;
+        this.rect.y = this.posY;
     }
 
     public float getMonsterHealth() {
@@ -92,6 +93,4 @@ public class Monster {
     public static float getSpeed() {
         return speed;
     }
-
-
 }

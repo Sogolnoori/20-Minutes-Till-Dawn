@@ -57,4 +57,8 @@ public class MonsterController {
 
         animation.setPlayMode(Animation.PlayMode.LOOP);
     }
+
+    public void kill(Monster monster) {
+        monsters.remove(monster);
+    }
 }

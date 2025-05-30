@@ -40,7 +40,6 @@ public class PreGameMenuView implements Screen {
 
         table.setFillParent(true);
 
-
         Table topTable = new Table();
 
         selectHero.setItems(GameAssetManager.getGameAssetManager().getHeroes().toArray(new String[0]));

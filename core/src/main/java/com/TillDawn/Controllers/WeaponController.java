@@ -4,18 +4,14 @@ import com.TillDawn.Main;
 import com.TillDawn.Models.App;
 import com.TillDawn.Models.Bullet;
 import com.TillDawn.Models.Weapon;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 
-import javax.swing.*;
 import java.util.ArrayList;
 
 public class WeaponController {
-    private Weapon weapon;
+    private final Weapon weapon;
     private ArrayList<Bullet> bullets = new ArrayList<>();
     private OrthographicCamera camera;
 
@@ -59,13 +55,12 @@ public class WeaponController {
     public void updateBullets() {
         for(Bullet b : bullets) {
             b.getSprite().draw(Main.getBatch());
-            Vector2 direction = new Vector2(
-                Gdx.graphics.getWidth()/2f - b.getX(),
-                Gdx.graphics.getHeight()/2f - b.getY()
-            ).nor();
 
-            b.getSprite().setX(b.getSprite().getX() - direction.x * 5);
-            b.getSprite().setY(b.getSprite().getY() + direction.y * 5);
+            b.setXPos(b.getSprite().getX() - b.getDirection().x * 5);
+            b.setYPos(b.getSprite().getY() + b.getDirection().y * 5);
+
+            b.getSprite().setX(b.getXPos());
+            b.getSprite().setY(b.getYPos());
         }
     }
 }

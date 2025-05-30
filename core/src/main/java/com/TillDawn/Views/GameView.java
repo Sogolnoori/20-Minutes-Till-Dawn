@@ -2,10 +2,7 @@ package com.TillDawn.Views;
 
 import com.TillDawn.Controllers.GameController;
 import com.TillDawn.Main;
-import com.TillDawn.Models.App;
-import com.TillDawn.Models.Game;
-import com.TillDawn.Models.GameAssetManager;
-import com.TillDawn.Models.Player;
+import com.TillDawn.Models.*;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
@@ -68,7 +65,9 @@ public class GameView implements Screen,  InputProcessor {
 
         game.getWeapon().getSmgSprite().draw(Main.getBatch());
         player.getPlayerSprite().draw(Main.getBatch());
-        game.getMonsters().get(0).getMonsterSprite().draw(Main.getBatch());
+        for (Monster monster : game.getMonsters()) {
+            monster.getMonsterSprite().draw(Main.getBatch());
+        }
 
 //        stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
 //        stage.draw();
