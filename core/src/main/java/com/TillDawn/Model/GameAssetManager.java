@@ -29,6 +29,8 @@ public class GameAssetManager {
         }
     }
 
+    private final Texture heroShot = new Texture("heroes/heroShot.png");
+
     private final ArrayList<String> monsters = new ArrayList<>(Arrays.asList("TreeMonster", "Tentacle", "EyeBat", "Boss"));
     private final ArrayList<String>[] monsterIdles = new ArrayList[monsters.size()];
     private final ArrayList<Texture>[] monsterTex = new ArrayList[monsters.size()];
@@ -81,7 +83,6 @@ public class GameAssetManager {
             numbers.add(new Texture("Weapons/Counter/" + i  + ".png"));
         }
     }
-
 
 
     private final ArrayList<String> heartImg = new ArrayList<>();
@@ -222,11 +223,11 @@ public class GameAssetManager {
         return backslash;
     }
 
-    public ArrayList<Texture>[] getExplosionTex() {
-        return explosionTex;
-    }
-
     public ArrayList<Animation<Texture>> getExplosionAnimations() {
         return explosionAnimations;
+    }
+
+    public Texture getHeroShot() {
+        return heroShot;
     }
 }

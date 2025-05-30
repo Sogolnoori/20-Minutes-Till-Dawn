@@ -45,6 +45,9 @@ public class GameController {
                 Main.getMain().getScreen().dispose();
                 Main.getMain().setScreen(new EndMenuView(new EndMenuController(), GameAssetManager.getGameAssetManager().getSkin(), game, true));
             }
+            if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)){
+                App.getCurrentGame().getWeapon().setAutoAim(!App.getCurrentGame().getWeapon().isAutoAim());
+            }
             if(Gdx.input.isKeyJustPressed(Input.Keys.R)){
                 App.getCurrentGame().getWeapon().reload();
                 App.getCurrentGame().getAmmoCounter().setAmmo(App.getCurrentGame().getWeapon().getAmmo());
@@ -76,6 +79,7 @@ public class GameController {
             weaponController.update();
             monsterController.update();
             heartController.update();
+            view.getIdleDamageSprite().setPosition(game.getPlayer().getPosX() + 10, game.getPlayer().getPosY() + 20);
             killMonsters();
             killPlayer();
             getDroplets();
@@ -124,14 +128,12 @@ public class GameController {
             if(monster.isDying()) continue;
             if(monster.getRect().collidesWith(game.getPlayer().getRect())){
                 game.getPlayer().reduceHealth();
-                game.getPlayer().setInvisibleTimeLeft(1);
                 break;
             }
         }
         for (Projectile shot : game.getMonsterShots()) {
             if(shot.getRect().collidesWith(game.getPlayer().getRect())){
                 game.getPlayer().reduceHealth();
-                game.getPlayer().setInvisibleTimeLeft(1);
                 game.getMonsterShots().remove(shot);
                 break;
             }
@@ -140,7 +142,6 @@ public class GameController {
             BossRect bossRect = game.getMonsterSpawner().getBossRect();
             if(bossRect.intersects(game.getPlayer().getRect())){
                 game.getPlayer().reduceHealth();
-                game.getPlayer().setInvisibleTimeLeft(1);
             }
         }
     }

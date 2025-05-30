@@ -35,6 +35,7 @@ public class GameView implements Screen,  InputProcessor {
     private final BitmapFont font;
     private final ShapeRenderer shapeRenderer;
     private final Sprite skullSprite;
+    private final Sprite idleDamageSprite;
 
     private boolean isUpgradeMenuVisible = false;
     private final Rectangle BtnBounds1 = new Rectangle(0, 0, 0, 0);
@@ -54,6 +55,8 @@ public class GameView implements Screen,  InputProcessor {
         this.skullSprite = new Sprite(new Texture("Skull.png"));
         this.skullSprite.setPosition(Gdx.graphics.getWidth() - 110, Gdx.graphics.getHeight() - 157);
         this.skullSprite.setSize(27, 35);
+        this.idleDamageSprite = new Sprite(GameAssetManager.getGameAssetManager().getHeroShot());
+        this.idleDamageSprite.setSize(30, 40);
 
         this.stage = new Stage();
         stage.setViewport(new ScreenViewport());
@@ -94,8 +97,12 @@ public class GameView implements Screen,  InputProcessor {
 
         controller.updateGame();
 
-        game.getWeapon().getSmgSprite().draw(Main.getBatch());
         player.getPlayerSprite().draw(Main.getBatch());
+        game.getWeapon().getSmgSprite().draw(Main.getBatch());
+
+        if(player.getInvisibleTimeLeft() > 0){
+            idleDamageSprite.draw(Main.getBatch());
+        }
 
         for(Projectile b : game.getBullets()) {
             b.getSprite().draw(Main.getBatch());
@@ -310,5 +317,9 @@ public class GameView implements Screen,  InputProcessor {
         abilityList[0] = ability1;
         abilityList[1] = ability2;
         abilityList[2] = ability3;
+    }
+
+    public Sprite getIdleDamageSprite() {
+        return idleDamageSprite;
     }
 }

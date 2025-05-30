@@ -48,15 +48,44 @@ public class WeaponController {
         weaponSprite.setRotation(angleDeg);
     }
 
+    private float squareDistance(float x1, float y1, float x2, float y2) {
+        return (float) (Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+    }
+
     public void handleWeaponShoot(int xClicked, int yClicked) {
         if(weapon.getAmmo() == 0){
             return;
         }
+        Vector2 dir = new Vector2(
+            xClicked - Gdx.graphics.getWidth() / 2f,
+            Gdx.graphics.getHeight() / 2f - yClicked);
+
+        if(weapon.isAutoAim() && !App.getCurrentGame().getMonsters().isEmpty()){
+            boolean aliveMonster = false;
+            float x = 0, y = 0;
+            for (Monster monster : App.getCurrentGame().getMonsters()) {
+                if(monster.isDying()) continue;
+                if(!aliveMonster){
+                    x = monster.getMidX();
+                    y = monster.getMidY();
+                    aliveMonster = true;
+                }
+                float d1 = squareDistance(weapon.getX(), weapon.getY(), x, y);
+                float d2 = squareDistance(weapon.getX(), weapon.getY(), monster.getMidX(), monster.getMidY());
+                if(d2 < d1){
+                    x = monster.getMidX();
+                    y = monster.getMidY();
+                }
+            }
+            if(aliveMonster) {
+                dir.set(x - weapon.getX(), y - weapon.getY());
+            }
+        }
+        dir.nor();
+
         for (int i = 0; i < weapon.getProjectile(); i ++) {
-            Vector2 dir = new Vector2(Gdx.graphics.getWidth() / 2f - xClicked,
-            Gdx.graphics.getHeight() / 2f - yClicked).nor();
             bullets.add(new Projectile(
-                weapon.getX() - dir.x * 25 * i,
+                weapon.getX() + dir.x * 25 * i,
                 weapon.getY() + dir.y * 25 * i,
                 dir,
                 GameAssetManager.getGameAssetManager().getBulletTex()));
@@ -72,7 +101,7 @@ public class WeaponController {
     public void updateBullets() {
         for(Projectile b : bullets) {
 
-            b.setXPos(b.getSprite().getX() - b.getDirection().x * 5);
+            b.setXPos(b.getSprite().getX() + b.getDirection().x * 5);
             b.setYPos(b.getSprite().getY() + b.getDirection().y * 5);
 
             b.getSprite().setX(b.getXPos());

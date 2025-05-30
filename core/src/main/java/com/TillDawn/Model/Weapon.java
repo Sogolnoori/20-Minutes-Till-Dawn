@@ -13,6 +13,7 @@ public class Weapon {
     private int maxAmmo;
     private int ammo;
     private boolean autoReload = false;
+    private boolean autoAim = false;
     private int damage;
     private int projectile;
 
@@ -99,5 +100,13 @@ public class Weapon {
 
     public int getProjectile() {
         return projectile;
+    }
+
+    public boolean isAutoAim() {
+        return autoAim;
+    }
+
+    public void setAutoAim(boolean autoAim) {
+        this.autoAim = autoAim;
     }
 }

@@ -3,6 +3,7 @@ package com.TillDawn.Model;
 import com.TillDawn.Model.Enum.Hero;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.math.Vector2;
 
 public class Player {
     private Hero heroEnum;
@@ -81,16 +82,8 @@ public class Player {
         return playerHealth;
     }
 
-    public void setPlayerHealth(int playerHealth) {
-        this.playerHealth = playerHealth;
-    }
-
     public CollisionRect getRect() {
         return rect;
-    }
-
-    public void setRect(CollisionRect rect) {
-        this.rect = rect;
     }
 
     public float getTime() {
@@ -133,12 +126,9 @@ public class Player {
         this.kills ++;
     }
 
-    public Hero getHeroEnum() {
-        return heroEnum;
-    }
-
     public void reduceHealth(){
         this.playerHealth -= 1;
+        setInvisibleTimeLeft(1);
     }
 
     public void addHealth(){
