@@ -29,9 +29,9 @@ public class LoginMenuView implements Screen {
         this.table = new Table();
 
         this.message = new Label("", skin);
-        this.usernameField = new TextField("Sogol", skin);
+        this.usernameField = new TextField("", skin);
         this.usernameField.setMessageText("Username");
-        this.passwordField = new TextField("Sogol2005)", skin);
+        this.passwordField = new TextField("", skin);
         this.passwordField.setMessageText("Password");
         this.loginButton = new TextButton("Login", skin);
         this.forgetPasswordButton = new TextButton("Forget Password", skin);

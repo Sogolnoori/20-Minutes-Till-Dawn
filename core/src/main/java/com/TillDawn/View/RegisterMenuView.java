@@ -30,11 +30,11 @@ public class RegisterMenuView implements Screen {
         this.table = new Table();
 
         this.message = new Label("", skin);
-        this.usernameField = new TextField("Sogol", skin);
+        this.usernameField = new TextField("", skin);
         this.usernameField.setMessageText("Username");
-        this.passwordField = new TextField("Sogol2005)", skin);
+        this.passwordField = new TextField("", skin);
         this.passwordField.setMessageText("Password");
-        this.securityQuestionField = new TextField("AvdaCdavra", skin);
+        this.securityQuestionField = new TextField("", skin);
         this.securityQuestionField.setMessageText("What's your favorite spell?");
         this.registerButton = new TextButton("Register", skin);
         this.loginMenuButton = new TextButton("Login Menu", skin);

@@ -100,7 +100,7 @@ public class GameAssetManager {
     private final String bullet = "bullet.png";
     private final Texture bulletTex = new Texture(bullet);
 
-    private final int musicNumber = 1;
+    private final int musicNumber = 2;
     private final ArrayList<Music> musics = new ArrayList<>();
     {
         for (int i = 0; i < musicNumber; i  ++){
