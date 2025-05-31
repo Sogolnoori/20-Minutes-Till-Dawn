@@ -7,6 +7,7 @@ public class Game {
     private final Weapon weapon;
     private final ArrayList<Bullet> bullets;
     private final ArrayList<Monster> monsters;
+    private final ArrayList<Heart> hearts;
     private float totalTime;
     private float timeSpent;
 
@@ -16,7 +17,14 @@ public class Game {
         this.weapon = new Weapon();
         this.bullets = new ArrayList<>();
         this.monsters = new ArrayList<>();
+        this.hearts = new ArrayList<>();
         this.monsters.add(new Monster(1));
+    }
+
+    public void addHearts(){
+        for (int i = 0; i < player.getPlayerHealth(); i ++){
+            hearts.add(new Heart(i));
+        }
     }
 
     public Player getPlayer() {
@@ -48,5 +56,9 @@ public class Game {
 
     public ArrayList<Bullet> getBullets() {
         return bullets;
+    }
+
+    public ArrayList<Heart> getHearts() {
+        return hearts;
     }
 }

@@ -16,24 +16,25 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class GameView implements Screen,  InputProcessor {
-    private Stage stage;
     private final GameController controller;
 
     private final Texture backgroundTexture;
 
     private final OrthographicCamera camera;
+    private final OrthographicCamera uiCamera;
     private Viewport viewport;
 
     public GameView(GameController controller, Skin skin) {
         this.controller = controller;
         this.camera = new OrthographicCamera((float)Gdx.graphics.getWidth(), (float)Gdx.graphics.getHeight());
+        this.uiCamera = new OrthographicCamera();
+        this.uiCamera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         this.backgroundTexture = new Texture("background.png");
         controller.setView(this, camera);
     }
 
     @Override
     public void show() {
-        stage = new Stage(new ScreenViewport());
         viewport = new FitViewport(1600, 960, camera);
         viewport.apply();
         camera.position.set(viewport.getWorldWidth() / 2f, viewport.getWorldHeight() / 2f, 0);
@@ -69,8 +70,14 @@ public class GameView implements Screen,  InputProcessor {
             monster.getMonsterSprite().draw(Main.getBatch());
         }
 
-//        stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
-//        stage.draw();
+        Main.getBatch().end();
+
+
+        Main.getBatch().setProjectionMatrix(uiCamera.combined);
+        Main.getBatch().begin();
+        for (Heart heart : game.getHearts()) {
+            heart.getHeartSprite().draw(Main.getBatch());
+        }
         Main.getBatch().end();
     }
 

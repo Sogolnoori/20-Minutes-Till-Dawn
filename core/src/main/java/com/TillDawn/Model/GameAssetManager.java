@@ -57,14 +57,14 @@ public class GameAssetManager {
 
     private final ArrayList<String> heartImg = new ArrayList<>();
     private final ArrayList<Texture> heartTex = new ArrayList<>();
-    private final ArrayList<Animation<Texture>> heartAnimations = new ArrayList<>();
+    private final Animation<Texture> heartAnimation;
 
     {
         for (int i = 0; i < 4; i ++){
             heartImg.add("Hearts/" + "HeartAnimation_" + i + ".png");
             heartTex.add(new Texture(heartImg.get(i)));
         }
-        heartAnimations.add(new Animation<Texture>(0.1f, heartTex.toArray(new Texture[0])));
+        heartAnimation = new Animation<Texture>(0.1f, heartTex.get(0), heartTex.get(1), heartTex.get(2));
     }
 
     private final String bullet = "bullet.png";
@@ -151,5 +151,17 @@ public class GameAssetManager {
 
     public ArrayList<Animation<Texture>> getMonsterAnimations() {
         return monsterAnimations;
+    }
+
+    public ArrayList<String> getHeartImg() {
+        return heartImg;
+    }
+
+    public ArrayList<Texture> getHeartTex() {
+        return heartTex;
+    }
+
+    public Animation<Texture> getHeartAnimation() {
+        return heartAnimation;
     }
 }

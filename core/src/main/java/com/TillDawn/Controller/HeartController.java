@@ -1,0 +1,43 @@
+package com.TillDawn.Controller;
+
+import com.TillDawn.Model.GameAssetManager;
+import com.TillDawn.Model.Heart;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
+
+import java.util.ArrayList;
+
+public class HeartController {
+    private final ArrayList<Heart> hearts;
+    OrthographicCamera camera;
+
+    public HeartController(ArrayList<Heart> hearts, OrthographicCamera camera) {
+        this.hearts = hearts;
+        this.camera = camera;
+    }
+
+    public void update() {
+        for (Heart heart : hearts) {
+            if(heart.isActive()) {
+                idleAnimation(heart);
+            }
+        }
+    }
+
+    public void idleAnimation(Heart heart) {
+        Animation<Texture> animation = GameAssetManager.getGameAssetManager().getHeartAnimation();
+
+        heart.getHeartSprite().setRegion(animation.getKeyFrame(heart.getTime()));
+
+        if(!animation.isAnimationFinished(heart.getTime())){
+            heart.setTime(heart.getTime() + Gdx.graphics.getDeltaTime());
+        }
+        else{
+            heart.setTime(0);
+        }
+
+        animation.setPlayMode(Animation.PlayMode.LOOP);
+    }
+}

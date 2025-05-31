@@ -15,6 +15,7 @@ public class GameController {
     private WorldController worldController;
     private WeaponController weaponController;
     private MonsterController monsterController;
+    private HeartController heartController;
     private OrthographicCamera camera;
 
     private final Game game;
@@ -30,6 +31,7 @@ public class GameController {
         worldController = new WorldController(playerController, camera);
         weaponController = new WeaponController(game.getWeapon(), game.getBullets(), camera);
         monsterController = new MonsterController(game.getMonsters(), camera);
+        heartController = new HeartController(game.getHearts(), camera);
     }
 
     public void updateGame(){
@@ -46,6 +48,7 @@ public class GameController {
             playerController.update();
             weaponController.update();
             monsterController.update();
+            heartController.update();
             killMonsters();
             killPlayer();
         }
