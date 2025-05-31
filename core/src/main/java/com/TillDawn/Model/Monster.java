@@ -10,14 +10,16 @@ public class Monster {
     private final MonsterEnum monsterEnum;
     private Texture monsterTexture;
     private Sprite monsterSprite;
-    private float posX = 0;
-    private float posY = 0;
+    private float posX;
+    private float posY;
     private int monsterHealth;
     private CollisionRect rect;
     private float time = 0;
 
-    public Monster(int monster) {
+    public Monster(int monster, float posX, float posY) {
         this.monster = monster;
+        this.posX = posX;
+        this.posY = posY;
         this.monsterEnum = MonsterEnum.values()[monster];
         this.monsterHealth = monsterEnum.getHp();
         this.monsterTexture = GameAssetManager.getGameAssetManager().getMonsterTex()[this.monster].get(0);
@@ -98,6 +100,10 @@ public class Monster {
     }
 
     public void reduceHealth() {
-        this.monsterHealth -= speed;
+        this.monsterHealth -= 1;
+    }
+
+    public MonsterEnum getMonsterEnum() {
+        return monsterEnum;
     }
 }

@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
 import java.util.ArrayList;
@@ -29,7 +30,7 @@ public class GameAssetManager {
         }
     }
 
-    private final ArrayList<String> monsters = new ArrayList<>(Arrays.asList("Tentacle", "EyeBat", "Elder"));
+    private final ArrayList<String> monsters = new ArrayList<>(Arrays.asList("TreeMonster", "Tentacle", "EyeBat", "Elder"));
     private final ArrayList<String>[] monsterIdles = new ArrayList[heroes.size()];
     private final ArrayList<Texture>[] monsterTex = new ArrayList[heroes.size()];
     private final ArrayList<Animation<Texture>> monsterAnimations = new ArrayList<>();
@@ -44,6 +45,9 @@ public class GameAssetManager {
             monsterAnimations.add(new Animation<Texture>(0.1f, monsterTex[i].toArray(new Texture[0])));
         }
     }
+
+    private final String monsterProjectile = "Monsters/MonsterProjectile.png";
+    private final Texture monsterProjectileTexture = new Texture(monsterProjectile);
 
     private final ArrayList<String> weapons = new ArrayList<>(Arrays.asList("REVOLVER", "SHOTGUN", "SMG"));
     private final ArrayList<String> weaponImg = new ArrayList<>();
@@ -64,7 +68,7 @@ public class GameAssetManager {
             heartImg.add("Hearts/" + "HeartAnimation_" + i + ".png");
             heartTex.add(new Texture(heartImg.get(i)));
         }
-        heartAnimation = new Animation<Texture>(0.1f, heartTex.get(0), heartTex.get(1), heartTex.get(2));
+        heartAnimation = new Animation<Texture>(0.2f, heartTex.get(0), heartTex.get(1), heartTex.get(2));
     }
 
     private final String bullet = "bullet.png";
@@ -151,6 +155,14 @@ public class GameAssetManager {
 
     public ArrayList<Animation<Texture>> getMonsterAnimations() {
         return monsterAnimations;
+    }
+
+    public String getMonsterProjectile() {
+        return monsterProjectile;
+    }
+
+    public Texture getMonsterProjectileTexture() {
+        return monsterProjectileTexture;
     }
 
     public ArrayList<String> getHeartImg() {

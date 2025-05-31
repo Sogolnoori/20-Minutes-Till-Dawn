@@ -8,7 +8,7 @@ public enum MonsterEnum {
 
     private final int hp;
 
-    private MonsterEnum(int hp) {
+    MonsterEnum(int hp) {
         this.hp = hp;
     }
 

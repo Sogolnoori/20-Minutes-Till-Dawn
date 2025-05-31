@@ -1,5 +1,6 @@
 package com.TillDawn.Controller;
 
+import com.TillDawn.Model.App;
 import com.TillDawn.Model.GameAssetManager;
 import com.TillDawn.Model.Heart;
 import com.badlogic.gdx.Gdx;
@@ -19,6 +20,11 @@ public class HeartController {
     }
 
     public void update() {
+        for (int i = 0; i < hearts.size(); i++) {
+            if(App.getCurrentGame().getPlayer().getPlayerHealth() <= i){
+                hearts.get(i).setActive(false);
+            }
+        }
         for (Heart heart : hearts) {
             if(heart.isActive()) {
                 idleAnimation(heart);

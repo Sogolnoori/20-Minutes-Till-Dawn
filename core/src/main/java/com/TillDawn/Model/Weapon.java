@@ -1,15 +1,18 @@
 package com.TillDawn.Model;
 
+import com.TillDawn.Model.Enum.WeaponEnum;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
 public class Weapon {
+    private WeaponEnum weaponEnum;
     private int type = 0;
     private float x;
     private float y;
     private Texture smgTexture;
     private Sprite smgSprite;
-    private int ammo = 30;
+    private int ammo;
+    private boolean autoReload = false;
 
     public Sprite getSmgSprite() {
         return smgSprite;
@@ -25,6 +28,8 @@ public class Weapon {
 
     public void setWeaponType(int weapon) {
         this.type = weapon;
+        this.weaponEnum = WeaponEnum.values()[type];
+        this.ammo = weaponEnum.getAmmo();
         this.smgTexture = GameAssetManager.getGameAssetManager().getWeaponTex().get(weapon);
         this.smgSprite = new Sprite(smgTexture);
         this.x = App.getCurrentGame().getPlayer().getPosX();
@@ -49,5 +54,13 @@ public class Weapon {
 
     public void setY(float y) {
         this.y = y;
+    }
+
+    public boolean isAutoReload() {
+        return autoReload;
+    }
+
+    public void setAutoReload(boolean autoReload) {
+        this.autoReload = autoReload;
     }
 }

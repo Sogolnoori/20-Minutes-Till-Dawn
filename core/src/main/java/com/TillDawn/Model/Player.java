@@ -16,6 +16,9 @@ public class Player {
     private CollisionRect rect;
     private float time = 0;
     private float speed;
+    private int xp = 0;
+    private float invisibleTimeLeft = 0;
+
 
     private boolean isPlayerIdle = true;
     private boolean isPlayerRunning = false;
@@ -133,5 +136,20 @@ public class Player {
 
     public void reduceHealth(){
         this.playerHealth -= 1;
+    }
+
+    public float getInvisibleTimeLeft() {
+        return invisibleTimeLeft;
+    }
+
+    public void reduceInvisibleTimeLeft(float time){
+        this.invisibleTimeLeft -= time;
+        if(this.invisibleTimeLeft <= 0){
+            this.invisibleTimeLeft = 0;
+        }
+    }
+
+    public void setInvisibleTimeLeft(float invisibleTimeLeft) {
+        this.invisibleTimeLeft = invisibleTimeLeft;
     }
 }

@@ -5,12 +5,14 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
 public class Heart {
+    private int id;
     private boolean active;
-    private final Texture heartTexture;
-    private final Sprite heartSprite;
+    private Texture heartTexture;
+    private Sprite heartSprite;
     private float time = 0;
 
     public Heart(int id){
+        this.id = id;
         this.active = true;
         heartTexture = GameAssetManager.getGameAssetManager().getHeartTex().get(0);
         heartSprite = new Sprite(heartTexture);
@@ -24,6 +26,13 @@ public class Heart {
 
     public void setActive(boolean active) {
         this.active = active;
+        if(!active){
+            this.heartTexture = GameAssetManager.getGameAssetManager().getHeartTex().get(3);
+            heartSprite = new Sprite(heartTexture);
+            heartSprite.setPosition(id * heartTexture.getWidth() * 2.5f, Gdx.graphics.getHeight() - heartTexture.getHeight() * 2.5f);
+            heartSprite.setSize(heartTexture.getWidth() * 2, heartSprite.getHeight() * 2);
+
+        }
     }
 
     public Texture getHeartTexture() {

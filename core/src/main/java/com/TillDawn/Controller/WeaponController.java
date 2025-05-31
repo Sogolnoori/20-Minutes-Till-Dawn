@@ -7,6 +7,7 @@ import com.TillDawn.Model.Weapon;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector3;
+import com.sun.media.sound.RIFFWriter;
 
 import java.util.ArrayList;
 
@@ -48,6 +49,9 @@ public class WeaponController {
     }
 
     public void handleWeaponShoot(int x, int y){
+        if(weapon.getAmmo() == 0){
+            return;
+        }
         bullets.add(new Bullet(weapon.getX(), weapon.getY(), x, y));
         weapon.setAmmo(weapon.getAmmo() - 1);
     }

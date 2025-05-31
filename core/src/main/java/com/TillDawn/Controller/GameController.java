@@ -72,9 +72,13 @@ public class GameController {
     }
 
     public void killPlayer() {
+        if(game.getPlayer().getInvisibleTimeLeft() > 0){
+            return;
+        }
         for (Monster monster : game.getMonsters()) {
             if(monster.getRect().collidesWith(game.getPlayer().getRect())){
                 game.getPlayer().reduceHealth();
+                game.getPlayer().setInvisibleTimeLeft(1);
             }
         }
     }

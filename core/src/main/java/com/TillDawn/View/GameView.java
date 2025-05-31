@@ -18,7 +18,6 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 public class GameView implements Screen,  InputProcessor {
     private final GameController controller;
 
-    private final Texture backgroundTexture;
 
     private final OrthographicCamera camera;
     private final OrthographicCamera uiCamera;
@@ -29,7 +28,6 @@ public class GameView implements Screen,  InputProcessor {
         this.camera = new OrthographicCamera((float)Gdx.graphics.getWidth(), (float)Gdx.graphics.getHeight());
         this.uiCamera = new OrthographicCamera();
         this.uiCamera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        this.backgroundTexture = new Texture("background.png");
         controller.setView(this, camera);
     }
 
@@ -60,7 +58,7 @@ public class GameView implements Screen,  InputProcessor {
 
         Main.getBatch().begin();
 
-        Main.getBatch().draw(backgroundTexture, 0, 0, backgroundTexture.getWidth() * 0.25f, backgroundTexture.getHeight() * 0.25f);
+        game.getBackgroundSprite().draw(Main.getBatch());
 
         controller.updateGame();
 

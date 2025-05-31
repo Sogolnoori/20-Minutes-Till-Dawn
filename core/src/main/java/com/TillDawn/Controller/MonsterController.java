@@ -1,6 +1,7 @@
 package com.TillDawn.Controller;
 
 import com.TillDawn.Model.App;
+import com.TillDawn.Model.Enum.MonsterEnum;
 import com.TillDawn.Model.GameAssetManager;
 import com.TillDawn.Model.Monster;
 import com.badlogic.gdx.Gdx;
@@ -22,9 +23,15 @@ public class MonsterController {
     }
 
     public void update() {
+        Random random = new Random();
+        if(random.nextInt(10) == 0) {
+            newMonster(random.nextInt(2));
+        }
         for (Monster monster : monsters) {
             idleAnimation(monster);
-            move(monster);
+            if(!monster.getMonsterEnum().equals(MonsterEnum.Tree)) {
+                move(monster);
+            }
         }
     }
 
@@ -63,11 +70,25 @@ public class MonsterController {
         else{
             monster.setTime(0);
         }
-
         animation.setPlayMode(Animation.PlayMode.LOOP);
     }
 
     public void kill(Monster monster) {
         monsters.remove(monster);
+    }
+
+    public void newMonster(int type){
+        Random rand = new Random();
+        float x, y;
+        if(rand.nextBoolean()){
+            x = App.getCurrentGame().getMapWidth() * rand.nextFloat();
+            y = App.getCurrentGame().getMapHeight() * rand.nextInt(2);
+        }
+        else{
+            x = App.getCurrentGame().getMapWidth() * rand.nextInt(2);
+            y = App.getCurrentGame().getMapHeight() * rand.nextFloat();
+        }
+        Monster monster = new Monster(type, x, y);
+        monsters.add(monster);
     }
 }
