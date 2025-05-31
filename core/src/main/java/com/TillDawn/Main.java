@@ -1,12 +1,8 @@
 package com.TillDawn;
 
-import com.TillDawn.Controllers.ForgetPasswordMenuController;
-import com.TillDawn.Controllers.MainMenuController;
-import com.TillDawn.Controllers.RegisterMenuController;
-import com.TillDawn.Models.GameAssetManager;
-import com.TillDawn.Views.ForgetPasswordMenuView;
-import com.TillDawn.Views.MainMenuView;
-import com.TillDawn.Views.RegisterMenuView;
+import com.TillDawn.Controller.RegisterMenuController;
+import com.TillDawn.Model.GameAssetManager;
+import com.TillDawn.View.RegisterMenuView;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
