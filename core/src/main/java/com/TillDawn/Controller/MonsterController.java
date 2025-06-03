@@ -23,10 +23,6 @@ public class MonsterController {
     }
 
     public void update() {
-        Random random = new Random();
-//        if(random.nextInt(100) == 0) {
-//            newMonster(random.nextInt(2));
-//        }
         for (Monster monster : monsters) {
             idleAnimation(monster);
             if(!monster.getMonsterEnum().equals(MonsterEnum.Tree)) {

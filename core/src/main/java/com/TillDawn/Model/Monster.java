@@ -29,8 +29,8 @@ public class Monster {
         rect = new CollisionRect(
             this.posX,
             this.posY,
-            monsterTexture.getWidth() * 2,
-            monsterTexture.getHeight() * 2);
+            monsterSprite.getWidth(),
+            monsterSprite.getHeight());
     }
 
     public Texture getMonsterTexture() {

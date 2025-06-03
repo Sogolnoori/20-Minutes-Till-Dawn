@@ -7,13 +7,13 @@ public class MonsterSpawner {
 
     private final ArrayList<Monster> monsters;
 
-    private final float tentacleSpawnInterval = 3.0f;
-    private final float eyeBatSpawnInterval = 10.0f;
+    private static final float tentacleSpawnInterval = 3.0f;
+    private static final float eyeBatSpawnInterval = 10.0f;
 
     private float timeSinceLastTentacleSpawn = 0f;
     private float timeSinceLastEyeBatSpawn = 0f;
     private float timeSpent = 0f;
-    private float totalTime;
+    private final float totalTime;
 
     public MonsterSpawner(ArrayList<Monster> monsters, float totalTime) {
         this.monsters = monsters;
@@ -27,12 +27,13 @@ public class MonsterSpawner {
 
         if (timeSinceLastEyeBatSpawn >= eyeBatSpawnInterval) {
             spawnEyeBat();
-            timeSinceLastTentacleSpawn = 0f;
+            timeSinceLastEyeBatSpawn = 0f;
         }
 
         if (timeSinceLastTentacleSpawn >= tentacleSpawnInterval) {
             spawnTentacle();
-            timeSinceLastEyeBatSpawn = 0f;
+            timeSinceLastTentacleSpawn = 0f;
+            System.out.println(timeSpent);
         }
     }
 

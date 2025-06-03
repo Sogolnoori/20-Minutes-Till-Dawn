@@ -15,7 +15,7 @@ public class Bullet {
     private Vector2 direction;
 
     public Bullet(float xStart, float yStart, int xClicked, int yClicked){
-        this.sprite.setSize(20 , 20);
+        this.sprite.setSize(10 , 10);
         this.xPos = xStart;
         this.yPos = yStart;
         this.direction = new Vector2(
@@ -23,7 +23,7 @@ public class Bullet {
             Gdx.graphics.getHeight() / 2f - yClicked).nor();
         this.sprite.setX(xStart);
         this.sprite.setY(yStart);
-        this.rect = new CollisionRect(xClicked, yClicked, texture.getWidth() * 3, texture.getHeight() * 3);
+        this.rect = new CollisionRect(xClicked, yClicked, sprite.getWidth(), sprite.getHeight());
     }
 
     public Texture getTexture() {
