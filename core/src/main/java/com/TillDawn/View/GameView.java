@@ -7,17 +7,14 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class GameView implements Screen,  InputProcessor {
-    private final GameController controller;
 
+    private final GameController controller;
 
     private final OrthographicCamera camera;
     private final OrthographicCamera uiCamera;
@@ -76,6 +73,11 @@ public class GameView implements Screen,  InputProcessor {
         for (Heart heart : game.getHearts()) {
             heart.getHeartSprite().draw(Main.getBatch());
         }
+        game.getAmmoCounter().getAmmoSprite().draw(Main.getBatch());
+        game.getAmmoCounter().getCurrentAmmoSprite().draw(Main.getBatch());
+        game.getAmmoCounter().getBackslashSprite().draw(Main.getBatch());
+        game.getAmmoCounter().getTotalAmmoSprite().draw(Main.getBatch());
+
         Main.getBatch().end();
     }
 

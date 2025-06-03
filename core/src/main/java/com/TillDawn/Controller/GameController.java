@@ -29,7 +29,7 @@ public class GameController {
         this.camera = camera;
         playerController = new PlayerController(game.getPlayer(), camera);
         worldController = new WorldController(playerController, camera);
-        weaponController = new WeaponController(game.getWeapon(), game.getBullets(), camera);
+        weaponController = new WeaponController(game.getWeapon(), game.getBullets(), game.getAmmoCounter(), camera);
         monsterController = new MonsterController(game.getMonsters(), camera);
         heartController = new HeartController(game.getHearts(), camera);
         for (int i = 0; i < 10; i ++){
@@ -42,6 +42,10 @@ public class GameController {
             if(App.getCurrentGame().getLeftTime() <= 0){
                 Main.getMain().getScreen().dispose();
                 Main.getMain().setScreen(new WinMenuView(new WinMenuController(), GameAssetManager.getGameAssetManager().getSkin()));
+            }
+            if(Gdx.input.isKeyJustPressed(Input.Keys.R)){
+                App.getCurrentGame().getWeapon().reload();
+                App.getCurrentGame().getAmmoCounter().setAmmo(App.getCurrentGame().getWeapon().getAmmo());
             }
             if(Gdx.input.isKeyJustPressed(Input.Keys.P)){
                 Main.getMain().getScreen().dispose();

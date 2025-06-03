@@ -1,6 +1,7 @@
 package com.TillDawn.Controller;
 
 import com.TillDawn.Main;
+import com.TillDawn.Model.AmmoCounter;
 import com.TillDawn.Model.App;
 import com.TillDawn.Model.Bullet;
 import com.TillDawn.Model.Weapon;
@@ -13,13 +14,15 @@ import java.util.ArrayList;
 
 public class WeaponController {
     private final Weapon weapon;
-    private ArrayList<Bullet> bullets = new ArrayList<>();
-    private OrthographicCamera camera;
+    private final ArrayList<Bullet> bullets;
+    private final AmmoCounter ammoCounter;
+    private final OrthographicCamera camera;
 
 
-    public WeaponController(Weapon weapon, ArrayList<Bullet> bullets, OrthographicCamera camera) {
+    public WeaponController(Weapon weapon, ArrayList<Bullet> bullets, AmmoCounter ammoCounter, OrthographicCamera camera) {
         this.weapon = weapon;
         this.bullets = bullets;
+        this.ammoCounter = ammoCounter;
         this.camera = camera;
     }
 
@@ -54,6 +57,10 @@ public class WeaponController {
         }
         bullets.add(new Bullet(weapon.getX(), weapon.getY(), x, y));
         weapon.setAmmo(weapon.getAmmo() - 1);
+        if(weapon.isAutoReload()){
+            weapon.reload();
+        }
+        ammoCounter.setAmmo(weapon.getAmmo());
     }
 
     public void updateBullets() {

@@ -14,6 +14,7 @@ public class Game {
     private final Player player;
     private final Weapon weapon;
     private final ArrayList<Bullet> bullets;
+    private final AmmoCounter ammoCounter;
     private final ArrayList<Monster> monsters;
     private final MonsterSpawner monsterSpawner;
     private final ArrayList<Heart> hearts;
@@ -21,7 +22,7 @@ public class Game {
     private float timeSpent;
 
 
-    public Game(float time, int hero, int weapon) {
+    public Game(float time, int hero, int weaponType) {
         this.totalTime = time;
         this.backgroundTex = new Texture("background.png");
         this.backgroundSprite = new Sprite(backgroundTex);
@@ -31,8 +32,9 @@ public class Game {
         this.player = new Player();
         this.player.setHero(hero);
         this.weapon = new Weapon();
-        this.weapon.setWeaponType(weapon);
+        this.weapon.setWeaponType(weaponType);
         this.bullets = new ArrayList<>();
+        this.ammoCounter = new AmmoCounter(weapon.getWeaponEnum().getAmmo());
         this.monsters = new ArrayList<>();
         this.monsterSpawner = new MonsterSpawner(monsters, time);
         this.hearts = new ArrayList<>();
@@ -93,5 +95,9 @@ public class Game {
 
     public ArrayList<Heart> getHearts() {
         return hearts;
+    }
+
+    public AmmoCounter getAmmoCounter() {
+        return ammoCounter;
     }
 }

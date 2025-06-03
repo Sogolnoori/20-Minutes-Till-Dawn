@@ -11,6 +11,7 @@ public class Weapon {
     private float y;
     private Texture smgTexture;
     private Sprite smgSprite;
+    private int fullAmmo;
     private int ammo;
     private boolean autoReload = false;
 
@@ -30,6 +31,7 @@ public class Weapon {
         this.type = weapon;
         this.weaponEnum = WeaponEnum.values()[type];
         this.ammo = weaponEnum.getAmmo();
+        this.fullAmmo = ammo;
         this.smgTexture = GameAssetManager.getGameAssetManager().getWeaponTex().get(weapon);
         this.smgSprite = new Sprite(smgTexture);
         this.x = 0;
@@ -62,5 +64,13 @@ public class Weapon {
 
     public void setAutoReload(boolean autoReload) {
         this.autoReload = autoReload;
+    }
+
+    public WeaponEnum getWeaponEnum() {
+        return weaponEnum;
+    }
+
+    public void reload() {
+        this.ammo = fullAmmo;
     }
 }

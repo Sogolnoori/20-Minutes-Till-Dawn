@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
 import java.util.ArrayList;
@@ -42,7 +41,7 @@ public class GameAssetManager {
                 monsterIdles[i].add("Monsters/" + monsters.get(i) + "/" +  monsters.get(i) + "_" + j + ".png");
                 monsterTex[i].add(new Texture(monsterIdles[i].get(j)));
             }
-            monsterAnimations.add(new Animation<Texture>(0.1f, monsterTex[i].toArray(new Texture[0])));
+            monsterAnimations.add(new Animation<Texture>(0.2f, monsterTex[i].toArray(new Texture[0])));
         }
     }
 
@@ -58,6 +57,20 @@ public class GameAssetManager {
             weaponTex.add(new Texture(weaponImg.get(i)));
         }
     }
+
+    private final String ammo = "Weapons/Ammo.png";
+    private final Texture ammoTex = new Texture(ammo);
+
+    private final ArrayList<Texture> numbers = new ArrayList<>();
+    private final Texture backslash = new Texture("Weapons/Counter/Backslash.png");
+
+    {
+        for (int i = 0; i < 16; i++) {
+            numbers.add(new Texture("Weapons/Counter/" + i  + ".png"));
+        }
+    }
+
+
 
     private final ArrayList<String> heartImg = new ArrayList<>();
     private final ArrayList<Texture> heartTex = new ArrayList<>();
@@ -83,7 +96,6 @@ public class GameAssetManager {
             musics.add(music);
         }
     }
-
 
 
     public static GameAssetManager getGameAssetManager() {
@@ -175,5 +187,21 @@ public class GameAssetManager {
 
     public Animation<Texture> getHeartAnimation() {
         return heartAnimation;
+    }
+
+    public String getAmmo() {
+        return ammo;
+    }
+
+    public Texture getAmmoTex() {
+        return ammoTex;
+    }
+
+    public ArrayList<Texture> getNumbers() {
+        return numbers;
+    }
+
+    public Texture getBackslash() {
+        return backslash;
     }
 }
