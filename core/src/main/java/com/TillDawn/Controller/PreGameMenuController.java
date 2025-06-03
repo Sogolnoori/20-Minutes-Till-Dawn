@@ -26,41 +26,43 @@ public class PreGameMenuController {
 
     public Game setUpNewGame(){
 
-        Game game = new Game();
-        App.getCurrentUser().setCurrentGame(game);
-
         //Hero
+        int hero = 0;
         for (int i = 0; i < GameAssetManager.getGameAssetManager().getHeroes().size(); i++) {
             if(GameAssetManager.getGameAssetManager().getHeroes().get(i).equals(view.getSelectHero().getSelected())){
-                game.getPlayer().setHero(i);
+                hero = i;
                 break;
             }
         }
 
         //Time
-        float[] time = {2, 5, 10, 20};
-        Array<String> times = new Array<>();
-        times.add("2 minutes");
-        times.add("5 minutes");
-        times.add("10 minutes");
-        times.add("20 minutes");
-        for (int i = 0; i < time.length; i++) {
-            if(times.get(i).equals(view.getSelectTime().getSelected())){
-                game.setTime(500000);
-//                game.setTime(time[i] * 60);
+        float time = 0;
+        float[] times = {2, 5, 10, 20};
+        Array<String> timeNames = new Array<>();
+        timeNames.add("2 minutes");
+        timeNames.add("5 minutes");
+        timeNames.add("10 minutes");
+        timeNames.add("20 minutes");
+        for (int i = 0; i < times.length; i++) {
+            if(timeNames.get(i).equals(view.getSelectTime().getSelected())){
+                time = 500000;
+//                time = time[i] * 60;
 
                 break;
             }
         }
 
         //Weapon
-
+        int weapon = 0;
         for (int i = 0; i < GameAssetManager.getGameAssetManager().getWeapons().size(); i++) {
             if(GameAssetManager.getGameAssetManager().getWeapons().get(i).equals(view.getSelectWeapon().getSelected())){
-                game.getWeapon().setWeaponType(i);
+                weapon = i;
                 break;
             }
         }
+
+        Game game = new Game(time, hero, weapon);
+        App.getCurrentUser().setCurrentGame(game);
 
         return game;
     }

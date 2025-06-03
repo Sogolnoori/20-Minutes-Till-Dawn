@@ -32,6 +32,9 @@ public class GameController {
         weaponController = new WeaponController(game.getWeapon(), game.getBullets(), camera);
         monsterController = new MonsterController(game.getMonsters(), camera);
         heartController = new HeartController(game.getHearts(), camera);
+        for (int i = 0; i < 10; i ++){
+            monsterController.newTreeMonster();
+        }
     }
 
     public void updateGame(){
@@ -64,7 +67,7 @@ public class GameController {
                         monsterController.kill(monster);
                         game.getPlayer().addKills();
                     }
-                    game.getBullets().remove(bullet);
+                    //game.getBullets().remove(bullet);
                     break;
                 }
             }

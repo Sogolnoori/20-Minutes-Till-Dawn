@@ -35,7 +35,7 @@ public class GameAssetManager {
     private final ArrayList<Texture>[] monsterTex = new ArrayList[heroes.size()];
     private final ArrayList<Animation<Texture>> monsterAnimations = new ArrayList<>();
     {
-        for (int i = 0; i < 2; i ++){
+        for (int i = 0; i < 4; i ++){
             monsterIdles[i] = new ArrayList<>();
             monsterTex[i] = new ArrayList<>();
             for (int j = 0; j <= 3; j ++){

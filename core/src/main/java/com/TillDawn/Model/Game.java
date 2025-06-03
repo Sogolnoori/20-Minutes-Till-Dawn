@@ -1,10 +1,9 @@
 package com.TillDawn.Model;
 
-import com.badlogic.gdx.Gdx;
+import com.TillDawn.Controller.MonsterController;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
-import javax.swing.*;
 import java.util.ArrayList;
 
 public class Game {
@@ -16,22 +15,28 @@ public class Game {
     private final Weapon weapon;
     private final ArrayList<Bullet> bullets;
     private final ArrayList<Monster> monsters;
+    private final MonsterSpawner monsterSpawner;
     private final ArrayList<Heart> hearts;
     private float totalTime;
     private float timeSpent;
 
 
-    public Game() {
+    public Game(float time, int hero, int weapon) {
+        this.totalTime = time;
         this.backgroundTex = new Texture("background.png");
         this.backgroundSprite = new Sprite(backgroundTex);
         this.mapWidth = (float) backgroundTex.getWidth() / 2;
         this.mapHeight = (float) backgroundTex.getHeight() / 2;
         this.backgroundSprite.setSize(mapWidth, mapHeight);
         this.player = new Player();
+        this.player.setHero(hero);
         this.weapon = new Weapon();
+        this.weapon.setWeaponType(weapon);
         this.bullets = new ArrayList<>();
         this.monsters = new ArrayList<>();
+        this.monsterSpawner = new MonsterSpawner(monsters, time);
         this.hearts = new ArrayList<>();
+        this.addHearts();
     }
 
     public Sprite getBackgroundSprite() {
@@ -62,10 +67,12 @@ public class Game {
 
     public void setTime(float time) {
         this.totalTime = time;
+
     }
     public void updateTimeSpent(float time){
         this.timeSpent += time;
         player.reduceInvisibleTimeLeft(time);
+        monsterSpawner.update(time);
     }
 
     public float getTimeSpent() {

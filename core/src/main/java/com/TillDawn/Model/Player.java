@@ -37,7 +37,6 @@ public class Player {
         rect = new CollisionRect(this.posX, this.posY, playerTexture.getWidth() * 3, playerTexture.getHeight() * 3);
         this.speed = heroEnum.getSpeed();
         this.playerHealth = heroEnum.getHp();
-        App.getCurrentGame().addHearts();
     }
 
     public Texture getPlayerTexture() {

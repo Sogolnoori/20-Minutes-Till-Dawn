@@ -32,8 +32,8 @@ public class Weapon {
         this.ammo = weaponEnum.getAmmo();
         this.smgTexture = GameAssetManager.getGameAssetManager().getWeaponTex().get(weapon);
         this.smgSprite = new Sprite(smgTexture);
-        this.x = App.getCurrentGame().getPlayer().getPosX();
-        this.y = App.getCurrentGame().getPlayer().getPosY();
+        this.x = 0;//App.getCurrentGame().getPlayer().getPosX();
+        this.y = 0;//App.getCurrentGame().getPlayer().getPosY();
         this.smgSprite.setX(x);
         this.smgSprite.setY(y);
 

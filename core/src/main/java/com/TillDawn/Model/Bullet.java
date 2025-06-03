@@ -19,8 +19,8 @@ public class Bullet {
         this.xPos = xStart;
         this.yPos = yStart;
         this.direction = new Vector2(
-            Gdx.graphics.getWidth()/2f - xClicked,
-            Gdx.graphics.getHeight()/2f - yClicked).nor();
+            Gdx.graphics.getWidth() / 2f - xClicked,
+            Gdx.graphics.getHeight() / 2f - yClicked).nor();
         this.sprite.setX(xStart);
         this.sprite.setY(yStart);
         this.rect = new CollisionRect(xClicked, yClicked, texture.getWidth() * 3, texture.getHeight() * 3);
