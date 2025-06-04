@@ -45,7 +45,7 @@ public class PreGameMenuController {
         timeNames.add("20 minutes");
         for (int i = 0; i < times.length; i++) {
             if(timeNames.get(i).equals(view.getSelectTime().getSelected())){
-                time = 500000;
+                time = 15;
 //                time = time[i] * 60;
 
                 break;

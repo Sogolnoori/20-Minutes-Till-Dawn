@@ -69,8 +69,12 @@ public class Game {
 
     public void setTime(float time) {
         this.totalTime = time;
-
     }
+
+    public float getTotalTime() {
+        return totalTime;
+    }
+
     public void updateTimeSpent(float time){
         this.timeSpent += time;
         player.reduceInvisibleTimeLeft(time);

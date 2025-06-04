@@ -12,7 +12,7 @@ public class Player {
     private float posX = 1000;
     private float posY = 1000;
     private int playerHealth;
-    private float kills = 0;
+    private int kills = 0;
     private CollisionRect rect;
     private float time = 0;
     private float speed;
@@ -121,7 +121,7 @@ public class Player {
         isPlayerRunning = playerRunning;
     }
 
-    public float getKills() {
+    public int getKills() {
         return kills;
     }
 

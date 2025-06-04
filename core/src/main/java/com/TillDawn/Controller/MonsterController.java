@@ -36,6 +36,7 @@ public class MonsterController {
                 monster.setDeathTime(monster.getDeathTime() + Gdx.graphics.getDeltaTime());
                 if (monster.getDeathTime() > 0.8f) {
                     iterator.remove();
+                    App.getCurrentGame().getPlayer().addKills();
                 }
                 continue;
             }

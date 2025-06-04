@@ -4,12 +4,12 @@ import com.TillDawn.Main;
 import com.TillDawn.Model.*;
 import com.TillDawn.View.GameView;
 import com.TillDawn.View.PauseMenuView;
-import com.TillDawn.View.WinMenuView;
+import com.TillDawn.View.EndMenuView;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 
-import java.util.ArrayList;
+import java.util.Iterator;
 
 public class GameController {
     private GameView view;
@@ -43,7 +43,7 @@ public class GameController {
         if(view != null){
             if(App.getCurrentGame().getLeftTime() <= 0){
                 Main.getMain().getScreen().dispose();
-                Main.getMain().setScreen(new WinMenuView(new WinMenuController(), GameAssetManager.getGameAssetManager().getSkin()));
+                Main.getMain().setScreen(new EndMenuView(new EndMenuController(), GameAssetManager.getGameAssetManager().getSkin(), game, true));
             }
             if(Gdx.input.isKeyJustPressed(Input.Keys.R)){
                 App.getCurrentGame().getWeapon().reload();
@@ -64,16 +64,21 @@ public class GameController {
     }
 
     public void killMonsters() {
-        for (int i = game.getMonsters().size() - 1; i >= 0; i --) {
-            Monster monster = game.getMonsters().get(i);
-            for (Projectile bullet : game.getBullets()) {
-                if(monster.getRect().collidesWith(bullet.getRect())){
+        for (Monster monster : game.getMonsters()) {
+            if(monster.isDying()) continue;
+            Iterator<Projectile> bulletIterator = game.getBullets().iterator();
+            while (bulletIterator.hasNext()) {
+                Projectile bullet = bulletIterator.next();
+
+                if (monster.getRect().collidesWith(bullet.getRect())) {
                     monster.reduceHealth();
-                    if(monster.getMonsterHealth() <= 0) {
+
+                    if (monster.getMonsterHealth() <= 0) {
                         monsterController.kill(monster);
                         game.getPlayer().addKills();
                     }
-                    //game.getBullets().remove(bullet);
+
+                    bulletIterator.remove();
                     break;
                 }
             }
@@ -81,6 +86,13 @@ public class GameController {
     }
 
     public void killPlayer() {
+        if(game.getPlayer().getPlayerHealth() <= 0){
+            Main.getMain().getScreen().dispose();
+            Main.getMain().setScreen(new EndMenuView(
+                new EndMenuController(),
+                GameAssetManager.getGameAssetManager().getSkin(),
+                game, false));
+        }
         if(game.getPlayer().getInvisibleTimeLeft() > 0){
             return;
         }
@@ -88,6 +100,7 @@ public class GameController {
             if(monster.getRect().collidesWith(game.getPlayer().getRect())){
                 game.getPlayer().reduceHealth();
                 game.getPlayer().setInvisibleTimeLeft(1);
+                break;
             }
         }
     }
