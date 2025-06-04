@@ -110,6 +110,10 @@ public class EndMenuView implements Screen {
 
     }
 
+    public Game getGame() {
+        return game;
+    }
+
     public TextButton getRetryButton() {
         return retryButton;
     }

@@ -29,7 +29,7 @@ public class GameAssetManager {
         }
     }
 
-    private final ArrayList<String> monsters = new ArrayList<>(Arrays.asList("TreeMonster", "Tentacle", "EyeBat", "Elder"));
+    private final ArrayList<String> monsters = new ArrayList<>(Arrays.asList("TreeMonster", "Tentacle", "EyeBat", "Boss"));
     private final ArrayList<String>[] monsterIdles = new ArrayList[monsters.size()];
     private final ArrayList<Texture>[] monsterTex = new ArrayList[monsters.size()];
     private final ArrayList<Animation<Texture>> monsterAnimations = new ArrayList<>();

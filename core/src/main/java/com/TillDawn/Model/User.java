@@ -1,5 +1,7 @@
 package com.TillDawn.Model;
 
+import com.TillDawn.Main;
+
 import java.util.Random;
 
 public class User {
@@ -73,16 +75,16 @@ public class User {
         return kills;
     }
 
-    public void setKills(int kills) {
-        this.kills = kills;
+    public void addKills(int kills) {
+        this.kills += kills;
     }
 
     public int getMaxTimeAlive() {
         return maxTimeAlive;
     }
 
-    public void setMaxTimeAlive(int maxTimeAlive) {
-        this.maxTimeAlive = maxTimeAlive;
+    public void updateMaxTimeAlive(int maxTimeAlive) {
+        this.maxTimeAlive = Math.max(maxTimeAlive, this.maxTimeAlive);
     }
 
     public Game getCurrentGame() {

@@ -2,8 +2,10 @@ package com.TillDawn.Controller;
 
 import com.TillDawn.Main;
 import com.TillDawn.Model.*;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 
 import java.util.ArrayList;
@@ -47,11 +49,18 @@ public class WeaponController {
         weaponSprite.setRotation(angleDeg);
     }
 
-    public void handleWeaponShoot(int x, int y){
+    public void handleWeaponShoot(int xClicked, int yClicked) {
         if(weapon.getAmmo() == 0){
             return;
         }
-        bullets.add(new Projectile(weapon.getX(), weapon.getY(), x, y, GameAssetManager.getGameAssetManager().getBulletTex()));
+        bullets.add(new Projectile(
+            weapon.getX(),
+            weapon.getY(),
+            new Vector2(
+            Gdx.graphics.getWidth() / 2f - xClicked,
+            Gdx.graphics.getHeight() / 2f - yClicked).nor(),
+            GameAssetManager.getGameAssetManager().getBulletTex()));
+
         weapon.setAmmo(weapon.getAmmo() - 1);
         if(weapon.isAutoReload()){
             weapon.reload();

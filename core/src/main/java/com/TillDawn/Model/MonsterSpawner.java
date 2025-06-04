@@ -1,40 +1,61 @@
 package com.TillDawn.Model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Random;
 
 public class MonsterSpawner {
 
     private final ArrayList<Monster> monsters;
+    private final HashMap<Monster, Timer> shooterTimers;
 
     private static final float tentacleSpawnInterval = 3.0f;
     private static final float eyeBatSpawnInterval = 10.0f;
 
-    private float timeSinceLastTentacleSpawn = 0f;
-    private float timeSinceLastEyeBatSpawn = 0f;
+    private final Timer tentacleTimer;
+    private final Timer eyeBatTimer;
     private float timeSpent = 0f;
     private final float totalTime;
 
     public MonsterSpawner(ArrayList<Monster> monsters, float totalTime) {
         this.monsters = monsters;
         this.totalTime = totalTime;
+        this.tentacleTimer = new Timer(tentacleSpawnInterval);
+        this.eyeBatTimer = new Timer(eyeBatSpawnInterval);
+        this.shooterTimers = new HashMap<>();
     }
 
     public void update(float deltaTime) {
         timeSpent += deltaTime;
-        timeSinceLastEyeBatSpawn += deltaTime;
-        timeSinceLastTentacleSpawn += deltaTime;
+        tentacleTimer.update(deltaTime);
+        eyeBatTimer.update(deltaTime);
 
-        if (timeSinceLastEyeBatSpawn >= eyeBatSpawnInterval) {
+
+        if (eyeBatTimer.isFinished()) {
             spawnEyeBat();
-            timeSinceLastEyeBatSpawn = 0f;
+            eyeBatTimer.reset();
         }
 
-        if (timeSinceLastTentacleSpawn >= tentacleSpawnInterval) {
+        if (tentacleTimer.isFinished()) {
             spawnTentacle();
-            timeSinceLastTentacleSpawn = 0f;
-            System.out.println(timeSpent);
+            tentacleTimer.reset();
         }
+
+        Iterator<Monster> iterator = shooterTimers.keySet().iterator();
+        while (iterator.hasNext()) {
+            Monster monster = iterator.next();
+            if (monster.isDying()) {
+                iterator.remove();
+                continue;
+            }
+            if(shooterTimers.get(monster).isFinished()){
+                //monster.shoot();
+                shooterTimers.get(monster).reset();
+            }
+        }
+
+        if (timeSpent * 2 >= totalTime) {}
     }
 
     private void spawnEyeBat() {
@@ -44,6 +65,7 @@ public class MonsterSpawner {
         int amount = (int)((timeSpent * 4 - totalTime + 30) / 30);
         for (int i = 0; i < amount; i++) {
             newMonster(2);
+            shooterTimers.put(monsters.get(monsters.size() - 1), new Timer(3));
         }
     }
 

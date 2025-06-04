@@ -12,17 +12,15 @@ public class Projectile {
     private float yPos;
     private final Vector2 direction;
 
-    public Projectile(float xStart, float yStart, int xClicked, int yClicked, Texture texture) {
+    public Projectile(float xStart, float yStart, Vector2 direction, Texture texture) {
         this.sprite = new Sprite(texture);
         this.sprite.setSize(10 , 10);
         this.xPos = xStart;
         this.yPos = yStart;
-        this.direction = new Vector2(
-            Gdx.graphics.getWidth() / 2f - xClicked,
-            Gdx.graphics.getHeight() / 2f - yClicked).nor();
+        this.direction = direction;
         this.sprite.setX(xStart);
         this.sprite.setY(yStart);
-        this.rect = new CollisionRect(xClicked, yClicked, sprite.getWidth(), sprite.getHeight());
+        this.rect = new CollisionRect(xStart, yStart, sprite.getWidth(), sprite.getHeight());
     }
 
     public Sprite getSprite() {

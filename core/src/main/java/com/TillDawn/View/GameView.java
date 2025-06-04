@@ -79,6 +79,10 @@ public class GameView implements Screen,  InputProcessor {
             monsterShot.getSprite().draw(Main.getBatch());
         }
 
+        for(Projectile droplet : game.getDroplets()){
+            droplet.getSprite().draw(Main.getBatch());
+        }
+
         Main.getBatch().end();
 
 

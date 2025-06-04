@@ -4,7 +4,7 @@ public enum MonsterEnum {
     Tree (1),
     Tentacle (25),
     EyeBat (50),
-    Elder (400);
+    Boss (400);
 
     private final int hp;
 

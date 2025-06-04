@@ -13,6 +13,7 @@ public class Game {
     private final Weapon weapon;
     private final ArrayList<Projectile> bullets;
     private final ArrayList<Projectile> monsterShots;
+    private final ArrayList<Projectile> droplets;
     private final AmmoCounter ammoCounter;
     private final ArrayList<Monster> monsters;
     private final MonsterSpawner monsterSpawner;
@@ -34,6 +35,7 @@ public class Game {
         this.weapon.setWeaponType(weaponType);
         this.bullets = new ArrayList<>();
         this.monsterShots = new ArrayList<>();
+        this.droplets = new ArrayList<>();
         this.ammoCounter = new AmmoCounter(weapon.getWeaponEnum().getAmmo());
         this.monsters = new ArrayList<>();
         this.monsterSpawner = new MonsterSpawner(monsters, time);
@@ -107,5 +109,9 @@ public class Game {
 
     public ArrayList<Projectile> getMonsterShots() {
         return monsterShots;
+    }
+
+    public ArrayList<Projectile> getDroplets() {
+        return droplets;
     }
 }

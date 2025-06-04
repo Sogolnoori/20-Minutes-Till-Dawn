@@ -32,7 +32,7 @@ public class GameController {
         playerController = new PlayerController(game.getPlayer(), camera);
         worldController = new WorldController(playerController, camera);
         weaponController = new WeaponController(game.getWeapon(), game.getBullets(), game.getAmmoCounter(), camera);
-        monsterController = new MonsterController(game.getMonsters(), game.getMonsterShots(), camera);
+        monsterController = new MonsterController(game.getMonsters(), game.getMonsterShots(), game.getDroplets(), camera);
         heartController = new HeartController(game.getHearts(), camera);
         for (int i = 0; i < 10; i ++){
             monsterController.newTreeMonster();
@@ -60,6 +60,7 @@ public class GameController {
             heartController.update();
             killMonsters();
             killPlayer();
+            getDroplets();
         }
     }
 
@@ -71,7 +72,7 @@ public class GameController {
                 Projectile bullet = bulletIterator.next();
 
                 if (monster.getRect().collidesWith(bullet.getRect())) {
-                    monster.reduceHealth();
+                    monster.reduceHealth(App.getCurrentGame().getWeapon().getWeaponEnum().getDamage());
 
                     if (monster.getMonsterHealth() <= 0) {
                         monsterController.kill(monster);
@@ -100,6 +101,18 @@ public class GameController {
             if(monster.getRect().collidesWith(game.getPlayer().getRect())){
                 game.getPlayer().reduceHealth();
                 game.getPlayer().setInvisibleTimeLeft(1);
+                break;
+            }
+        }
+    }
+
+    public void getDroplets() {
+        Iterator<Projectile> iter = game.getDroplets().iterator();
+        while (iter.hasNext()) {
+            Projectile droplet = iter.next();
+            if (droplet.getRect().collidesWith(game.getPlayer().getRect())) {
+                game.getPlayer().addXp(3);
+                iter.remove();
                 break;
             }
         }
