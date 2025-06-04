@@ -13,19 +13,19 @@ public class AmmoCounter {
 
     public AmmoCounter(int ammo) {
         this.ammoSprite = new Sprite(GameAssetManager.getGameAssetManager().getAmmoTex());
-        this.ammoSprite.setPosition(10, Gdx.graphics.getHeight() - 130);
+        this.ammoSprite.setPosition(30, Gdx.graphics.getHeight() - 170);
         this.ammoSprite.setSize((int)(ammoSprite.getWidth() * 1.5), (int)(ammoSprite.getHeight() * 1.5));
 
         this.currentAmmoSprite = new Sprite(GameAssetManager.getGameAssetManager().getNumbers().get(ammo));
-        this.currentAmmoSprite.setPosition(40, Gdx.graphics.getHeight() - 140);
+        this.currentAmmoSprite.setPosition(55, Gdx.graphics.getHeight() - 180);
         this.currentAmmoSprite.setSize((int)(currentAmmoSprite.getWidth() * 0.3), (int)(currentAmmoSprite.getHeight() * 0.3));
 
         this.backslashSprite = new Sprite(GameAssetManager.getGameAssetManager().getBackslash());
-        this.backslashSprite.setPosition(95, Gdx.graphics.getHeight() - 130);
+        this.backslashSprite.setPosition(110, Gdx.graphics.getHeight() - 170);
         this.backslashSprite.setSize((int)(backslashSprite.getWidth() * 0.09), (int)(backslashSprite.getHeight() * 0.09));
 
         this.totalAmmoSprite = new Sprite(GameAssetManager.getGameAssetManager().getNumbers().get(ammo));
-        this.totalAmmoSprite.setPosition(120, Gdx.graphics.getHeight() - 140);
+        this.totalAmmoSprite.setPosition(135, Gdx.graphics.getHeight() - 180);
         this.totalAmmoSprite.setSize((int)(totalAmmoSprite.getWidth() * 0.3), (int)(totalAmmoSprite.getHeight() * 0.3));
 
         this.currentAmmo = ammo;

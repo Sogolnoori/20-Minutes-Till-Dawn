@@ -20,11 +20,9 @@ public class EndMenuView implements Screen {
     private final boolean hasWon;
 
     private Stage stage;
-    private Table table;
 
     private BitmapFont font;
     private SpriteBatch batch;
-    private final Skin skin;
 
     private final TextButton retryButton;
     private final TextButton quitButton;
@@ -35,8 +33,6 @@ public class EndMenuView implements Screen {
 
     public EndMenuView(EndMenuController controller, Skin skin, Game game, boolean hasWon) {
         this.controller = controller;
-        this.table = new Table();
-        this.skin = skin;
 
         this.hasWon = hasWon;
         this.game = game;

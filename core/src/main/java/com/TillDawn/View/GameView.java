@@ -6,7 +6,11 @@ import com.TillDawn.Model.*;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
@@ -20,11 +24,17 @@ public class GameView implements Screen,  InputProcessor {
     private final OrthographicCamera uiCamera;
     private Viewport viewport;
 
+    private final BitmapFont font;
+    private final ShapeRenderer shapeRenderer;
+
     public GameView(GameController controller, Skin skin) {
         this.controller = controller;
         this.camera = new OrthographicCamera((float)Gdx.graphics.getWidth(), (float)Gdx.graphics.getHeight());
         this.uiCamera = new OrthographicCamera();
         this.uiCamera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+
+        this.font = new BitmapFont();
+        this.shapeRenderer = new ShapeRenderer();
         controller.setView(this, camera);
     }
 
@@ -72,15 +82,38 @@ public class GameView implements Screen,  InputProcessor {
         Main.getBatch().end();
 
 
+        float progress = (float) player.getXp() / player.getXpNeeded();
+        progress = MathUtils.clamp(progress, 0f, 1f);
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+
+        shapeRenderer.setColor(Color.DARK_GRAY);
+        shapeRenderer.rect(10, Gdx.graphics.getHeight() - 40, Gdx.graphics.getWidth() - 20, 30);
+
+        shapeRenderer.setColor(Color.valueOf("4A6274"));
+        shapeRenderer.rect(10, Gdx.graphics.getHeight() - 40, (Gdx.graphics.getWidth() - 20) * progress, 30);
+
+        shapeRenderer.end();
+
+
         Main.getBatch().setProjectionMatrix(uiCamera.combined);
         Main.getBatch().begin();
+
         for (Heart heart : game.getHearts()) {
             heart.getHeartSprite().draw(Main.getBatch());
         }
+
         game.getAmmoCounter().getAmmoSprite().draw(Main.getBatch());
         game.getAmmoCounter().getCurrentAmmoSprite().draw(Main.getBatch());
         game.getAmmoCounter().getBackslashSprite().draw(Main.getBatch());
         game.getAmmoCounter().getTotalAmmoSprite().draw(Main.getBatch());
+
+        String timeText = String.format("%02d:%02d", (int)game.getLeftTime() / 60, (int)game.getLeftTime() % 60);
+        font.getData().setScale(4f);
+        font.draw(Main.getBatch(), timeText, Gdx.graphics.getWidth() - 160, Gdx.graphics.getHeight() - 60);
+
+        String levelTex = String.format("LEVEL %d", game.getPlayer().getLevel());
+        font.getData().setScale(2f);
+        font.draw(Main.getBatch(), levelTex, (int)(Gdx.graphics.getWidth() / 2) - 50, Gdx.graphics.getHeight() - 15);
 
         Main.getBatch().end();
     }

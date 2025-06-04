@@ -16,7 +16,7 @@ public class Heart {
         this.active = true;
         heartTexture = GameAssetManager.getGameAssetManager().getHeartTex().get(0);
         heartSprite = new Sprite(heartTexture);
-        heartSprite.setPosition(id * heartTexture.getWidth() * 2.5f, Gdx.graphics.getHeight() - heartTexture.getHeight() * 2.5f);
+        heartSprite.setPosition(id * heartTexture.getWidth() * 2.5f + 10, Gdx.graphics.getHeight() - heartTexture.getHeight() * 2.5f - 35);
         heartSprite.setSize(heartTexture.getWidth() * 2, heartSprite.getHeight() * 2);
     }
 

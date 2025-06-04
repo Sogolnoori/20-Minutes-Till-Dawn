@@ -17,6 +17,7 @@ public class Player {
     private float time = 0;
     private float speed;
     private int xp = 0;
+    private int level = 1;
     private float invisibleTimeLeft = 0;
 
 
@@ -150,5 +151,25 @@ public class Player {
 
     public void setInvisibleTimeLeft(float invisibleTimeLeft) {
         this.invisibleTimeLeft = invisibleTimeLeft;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public int getXp() {
+        return xp;
+    }
+
+    public int getXpNeeded(){
+        return 20 * this.level;
+    }
+
+    public void addXp(int xp){
+        this.xp += xp;
+        if(this.xp >= this.getXpNeeded()){
+            this.xp -= this.getXpNeeded();
+            this.level++;
+        }
     }
 }
