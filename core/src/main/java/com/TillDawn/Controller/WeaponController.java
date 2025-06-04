@@ -1,25 +1,21 @@
 package com.TillDawn.Controller;
 
 import com.TillDawn.Main;
-import com.TillDawn.Model.AmmoCounter;
-import com.TillDawn.Model.App;
-import com.TillDawn.Model.Bullet;
-import com.TillDawn.Model.Weapon;
+import com.TillDawn.Model.*;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector3;
-import com.sun.media.sound.RIFFWriter;
 
 import java.util.ArrayList;
 
 public class WeaponController {
     private final Weapon weapon;
-    private final ArrayList<Bullet> bullets;
+    private final ArrayList<Projectile> bullets;
     private final AmmoCounter ammoCounter;
     private final OrthographicCamera camera;
 
 
-    public WeaponController(Weapon weapon, ArrayList<Bullet> bullets, AmmoCounter ammoCounter, OrthographicCamera camera) {
+    public WeaponController(Weapon weapon, ArrayList<Projectile> bullets, AmmoCounter ammoCounter, OrthographicCamera camera) {
         this.weapon = weapon;
         this.bullets = bullets;
         this.ammoCounter = ammoCounter;
@@ -55,7 +51,7 @@ public class WeaponController {
         if(weapon.getAmmo() == 0){
             return;
         }
-        bullets.add(new Bullet(weapon.getX(), weapon.getY(), x, y));
+        bullets.add(new Projectile(weapon.getX(), weapon.getY(), x, y, GameAssetManager.getGameAssetManager().getBulletTex()));
         weapon.setAmmo(weapon.getAmmo() - 1);
         if(weapon.isAutoReload()){
             weapon.reload();
@@ -64,7 +60,7 @@ public class WeaponController {
     }
 
     public void updateBullets() {
-        for(Bullet b : bullets) {
+        for(Projectile b : bullets) {
             b.getSprite().draw(Main.getBatch());
 
             b.setXPos(b.getSprite().getX() - b.getDirection().x * 5);

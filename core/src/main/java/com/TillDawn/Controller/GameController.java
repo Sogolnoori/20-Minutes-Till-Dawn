@@ -9,6 +9,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 
+import java.util.ArrayList;
+
 public class GameController {
     private GameView view;
     private PlayerController playerController;
@@ -30,7 +32,7 @@ public class GameController {
         playerController = new PlayerController(game.getPlayer(), camera);
         worldController = new WorldController(playerController, camera);
         weaponController = new WeaponController(game.getWeapon(), game.getBullets(), game.getAmmoCounter(), camera);
-        monsterController = new MonsterController(game.getMonsters(), camera);
+        monsterController = new MonsterController(game.getMonsters(), game.getMonsterShots(), camera);
         heartController = new HeartController(game.getHearts(), camera);
         for (int i = 0; i < 10; i ++){
             monsterController.newTreeMonster();
@@ -64,7 +66,7 @@ public class GameController {
     public void killMonsters() {
         for (int i = game.getMonsters().size() - 1; i >= 0; i --) {
             Monster monster = game.getMonsters().get(i);
-            for (Bullet bullet : game.getBullets()) {
+            for (Projectile bullet : game.getBullets()) {
                 if(monster.getRect().collidesWith(bullet.getRect())){
                     monster.reduceHealth();
                     if(monster.getMonsterHealth() <= 0) {

@@ -16,6 +16,9 @@ public class Monster {
     private CollisionRect rect;
     private float time = 0;
 
+    private boolean isDying = false;
+    private float deathTime = 0;
+
     public Monster(int monster, float posX, float posY) {
         this.monster = monster;
         this.posX = posX;
@@ -105,5 +108,21 @@ public class Monster {
 
     public MonsterEnum getMonsterEnum() {
         return monsterEnum;
+    }
+
+    public boolean isDying() {
+        return isDying;
+    }
+
+    public void setDying(boolean dying) {
+        this.isDying = dying;
+    }
+
+    public float getDeathTime() {
+        return deathTime;
+    }
+
+    public void setDeathTime(float deathTime) {
+        this.deathTime = deathTime;
     }
 }

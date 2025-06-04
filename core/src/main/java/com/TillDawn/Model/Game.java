@@ -1,19 +1,18 @@
 package com.TillDawn.Model;
 
-import com.TillDawn.Controller.MonsterController;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
 import java.util.ArrayList;
 
 public class Game {
-    private final Texture backgroundTex;
     private final Sprite backgroundSprite;
     private final float mapHeight;
     private final float mapWidth;
     private final Player player;
     private final Weapon weapon;
-    private final ArrayList<Bullet> bullets;
+    private final ArrayList<Projectile> bullets;
+    private final ArrayList<Projectile> monsterShots;
     private final AmmoCounter ammoCounter;
     private final ArrayList<Monster> monsters;
     private final MonsterSpawner monsterSpawner;
@@ -24,7 +23,7 @@ public class Game {
 
     public Game(float time, int hero, int weaponType) {
         this.totalTime = time;
-        this.backgroundTex = new Texture("background.png");
+        Texture backgroundTex = new Texture("background.png");
         this.backgroundSprite = new Sprite(backgroundTex);
         this.mapWidth = (float) backgroundTex.getWidth() / 2;
         this.mapHeight = (float) backgroundTex.getHeight() / 2;
@@ -34,6 +33,7 @@ public class Game {
         this.weapon = new Weapon();
         this.weapon.setWeaponType(weaponType);
         this.bullets = new ArrayList<>();
+        this.monsterShots = new ArrayList<>();
         this.ammoCounter = new AmmoCounter(weapon.getWeaponEnum().getAmmo());
         this.monsters = new ArrayList<>();
         this.monsterSpawner = new MonsterSpawner(monsters, time);
@@ -89,7 +89,7 @@ public class Game {
         return monsters;
     }
 
-    public ArrayList<Bullet> getBullets() {
+    public ArrayList<Projectile> getBullets() {
         return bullets;
     }
 
@@ -99,5 +99,9 @@ public class Game {
 
     public AmmoCounter getAmmoCounter() {
         return ammoCounter;
+    }
+
+    public ArrayList<Projectile> getMonsterShots() {
+        return monsterShots;
     }
 }

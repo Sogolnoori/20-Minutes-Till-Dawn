@@ -30,8 +30,8 @@ public class GameAssetManager {
     }
 
     private final ArrayList<String> monsters = new ArrayList<>(Arrays.asList("TreeMonster", "Tentacle", "EyeBat", "Elder"));
-    private final ArrayList<String>[] monsterIdles = new ArrayList[heroes.size()];
-    private final ArrayList<Texture>[] monsterTex = new ArrayList[heroes.size()];
+    private final ArrayList<String>[] monsterIdles = new ArrayList[monsters.size()];
+    private final ArrayList<Texture>[] monsterTex = new ArrayList[monsters.size()];
     private final ArrayList<Animation<Texture>> monsterAnimations = new ArrayList<>();
     {
         for (int i = 0; i < 4; i ++){
@@ -42,6 +42,18 @@ public class GameAssetManager {
                 monsterTex[i].add(new Texture(monsterIdles[i].get(j)));
             }
             monsterAnimations.add(new Animation<Texture>(0.2f, monsterTex[i].toArray(new Texture[0])));
+        }
+    }
+
+    private final ArrayList<Texture>[] explosionTex = new ArrayList[2];
+    private final ArrayList<Animation<Texture>> explosionAnimations = new ArrayList<>();
+    {
+        for (int i = 0; i < 2; i ++){
+            explosionTex[i] = new ArrayList<>();
+            for (int j = 0; j <= 4; j ++){
+                explosionTex[i].add(new Texture("Monsters/Explosions/" + i + "/" + j + ".png"));
+            }
+            explosionAnimations.add(new Animation<Texture>(0.15f, explosionTex[i].toArray(new Texture[0])));
         }
     }
 
@@ -85,6 +97,7 @@ public class GameAssetManager {
     }
 
     private final String bullet = "bullet.png";
+    private final Texture bulletTex = new Texture(bullet);
 
     private final int musicNumber = 1;
     private final ArrayList<Music> musics = new ArrayList<>();
@@ -145,6 +158,10 @@ public class GameAssetManager {
         return bullet;
     }
 
+    public Texture getBulletTex() {
+        return bulletTex;
+    }
+
     public int getMusicNumber() {
         return musicNumber;
     }
@@ -203,5 +220,13 @@ public class GameAssetManager {
 
     public Texture getBackslash() {
         return backslash;
+    }
+
+    public ArrayList<Texture>[] getExplosionTex() {
+        return explosionTex;
+    }
+
+    public ArrayList<Animation<Texture>> getExplosionAnimations() {
+        return explosionAnimations;
     }
 }

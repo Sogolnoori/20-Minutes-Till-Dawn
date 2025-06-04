@@ -5,16 +5,15 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 
-public class Bullet {
-    private final Texture texture = new Texture(GameAssetManager.getGameAssetManager().getBullet());
-    private final Sprite sprite = new Sprite(texture);
-    private CollisionRect rect;
-    private final int damage = 5;
+public class Projectile {
+    private final Sprite sprite;
+    private final CollisionRect rect;
     private float xPos;
     private float yPos;
-    private Vector2 direction;
+    private final Vector2 direction;
 
-    public Bullet(float xStart, float yStart, int xClicked, int yClicked){
+    public Projectile(float xStart, float yStart, int xClicked, int yClicked, Texture texture) {
+        this.sprite = new Sprite(texture);
         this.sprite.setSize(10 , 10);
         this.xPos = xStart;
         this.yPos = yStart;
@@ -26,16 +25,8 @@ public class Bullet {
         this.rect = new CollisionRect(xClicked, yClicked, sprite.getWidth(), sprite.getHeight());
     }
 
-    public Texture getTexture() {
-        return texture;
-    }
-
     public Sprite getSprite() {
         return sprite;
-    }
-
-    public int getDamage() {
-        return damage;
     }
 
     public CollisionRect getRect() {
