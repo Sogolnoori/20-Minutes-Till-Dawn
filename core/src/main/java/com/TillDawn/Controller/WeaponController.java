@@ -62,7 +62,7 @@ public class WeaponController {
             GameAssetManager.getGameAssetManager().getBulletTex()));
 
         weapon.setAmmo(weapon.getAmmo() - 1);
-        if(weapon.isAutoReload()){
+        if(weapon.getAmmo() == 0 && weapon.isAutoReload()){
             weapon.reload();
         }
         ammoCounter.setAmmo(weapon.getAmmo());

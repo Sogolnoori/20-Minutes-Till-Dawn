@@ -10,6 +10,7 @@ public class App {
 
     private static Music music = GameAssetManager.getGameAssetManager().getMusics().get(0);
     private static int musicIndex = 0;
+    private static boolean sfx = false;
 
     static {
         //users = SaveManager.load();
@@ -61,5 +62,13 @@ public class App {
                 users.sort(Comparator.comparingInt(User::getMaxTimeAlive).reversed());
 
         }
+    }
+
+    public static boolean hasSfx() {
+        return sfx;
+    }
+
+    public static void setSfx(boolean sfx) {
+        App.sfx = sfx;
     }
 }

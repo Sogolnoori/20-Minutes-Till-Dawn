@@ -8,6 +8,7 @@ import com.TillDawn.View.EndMenuView;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.math.Vector2;
 
 import java.util.Iterator;
 
@@ -88,6 +89,7 @@ public class GameController {
                 Projectile bullet = bulletIterator.next();
 
                 if (monster.getRect().collidesWith(bullet.getRect())) {
+                    shock(monster);
                     monster.reduceHealth(App.getCurrentGame().getWeapon().getWeaponEnum().getDamage());
 
                     if (monster.getMonsterHealth() <= 0) {
@@ -141,6 +143,13 @@ public class GameController {
                 break;
             }
         }
+    }
+
+    public void shock(Monster monster) {
+        Vector2 vec = new Vector2(monster.getMidX() - game.getPlayer().getPosX(), monster.getMidY() - game.getPlayer().getPosY()).nor();
+        monster.setPosX(monster.getPosX() + vec.x * 20);
+        monster.setPosY(monster.getPosY() + vec.y * 20);
+        monster.getMonsterSprite().setPosition(monster.getPosX(), monster.getPosY());
     }
 
     public PlayerController getPlayerController(){

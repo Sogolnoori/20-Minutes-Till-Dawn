@@ -20,7 +20,7 @@ public class SettingMenuController {
             }
             if(view.getNextMusic().isChecked()){
                 App.nextMusic();
-                view.getVolumeSlider().setValue(1f); // مقدار اولیه روی ماکس
+                view.getVolumeSlider().setValue(1f);
             }
         }
     }

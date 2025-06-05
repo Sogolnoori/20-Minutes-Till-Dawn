@@ -9,7 +9,6 @@ public class Weapon {
     private int type = 0;
     private float x;
     private float y;
-    private Texture smgTexture;
     private Sprite smgSprite;
     private int fullAmmo;
     private int ammo;
@@ -32,7 +31,7 @@ public class Weapon {
         this.weaponEnum = WeaponEnum.values()[type];
         this.ammo = weaponEnum.getAmmo();
         this.fullAmmo = ammo;
-        this.smgTexture = GameAssetManager.getGameAssetManager().getWeaponTex().get(weapon);
+        Texture smgTexture = GameAssetManager.getGameAssetManager().getWeaponTex().get(weapon);
         this.smgSprite = new Sprite(smgTexture);
         this.x = 0;
         this.y = 0;

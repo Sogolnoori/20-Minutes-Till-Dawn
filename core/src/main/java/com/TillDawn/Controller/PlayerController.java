@@ -1,5 +1,6 @@
 package com.TillDawn.Controller;
 
+import com.TillDawn.Model.Controls;
 import com.TillDawn.Model.GameAssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.TillDawn.Model.Player;
@@ -29,16 +30,16 @@ public class PlayerController {
 
     public void handlePlayerInput() {
 
-        if(Gdx.input.isKeyPressed(Input.Keys.W)){
+        if(Gdx.input.isKeyPressed(Controls.get("up"))){
             player.setPosY(player.getPosY() + player.getSpeed());
         }
-        if(Gdx.input.isKeyPressed(Input.Keys.D)){
+        if(Gdx.input.isKeyPressed(Controls.get("right"))){
             player.setPosX(player.getPosX() + player.getSpeed());
         }
-        if(Gdx.input.isKeyPressed(Input.Keys.S)){
+        if(Gdx.input.isKeyPressed(Controls.get("down"))){
             player.setPosY(player.getPosY() - player.getSpeed());
         }
-        if(Gdx.input.isKeyPressed(Input.Keys.A)){
+        if(Gdx.input.isKeyPressed(Controls.get("left"))){
             player.setPosX(player.getPosX() - player.getSpeed());
             player.getPlayerSprite().flip(true, false);
         }
