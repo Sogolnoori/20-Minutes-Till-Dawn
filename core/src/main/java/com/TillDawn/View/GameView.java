@@ -8,7 +8,9 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
@@ -26,6 +28,7 @@ public class GameView implements Screen,  InputProcessor {
 
     private final BitmapFont font;
     private final ShapeRenderer shapeRenderer;
+    private final Sprite skullSprite;
 
     public GameView(GameController controller, Skin skin) {
         this.controller = controller;
@@ -35,6 +38,10 @@ public class GameView implements Screen,  InputProcessor {
 
         this.font = new BitmapFont();
         this.shapeRenderer = new ShapeRenderer();
+        this.skullSprite = new Sprite(new Texture("Skull.png"));
+        this.skullSprite.setPosition(Gdx.graphics.getWidth() - 110, Gdx.graphics.getHeight() - 157);
+        this.skullSprite.setSize(27, 35);
+
         controller.setView(this, camera);
     }
 
@@ -111,6 +118,8 @@ public class GameView implements Screen,  InputProcessor {
         game.getAmmoCounter().getBackslashSprite().draw(Main.getBatch());
         game.getAmmoCounter().getTotalAmmoSprite().draw(Main.getBatch());
 
+        skullSprite.draw(Main.getBatch());
+
         String timeText = String.format("%02d:%02d", (int)game.getLeftTime() / 60, (int)game.getLeftTime() % 60);
         font.getData().setScale(4f);
         font.draw(Main.getBatch(), timeText, Gdx.graphics.getWidth() - 160, Gdx.graphics.getHeight() - 60);
@@ -118,6 +127,11 @@ public class GameView implements Screen,  InputProcessor {
         String levelTex = String.format("LEVEL %d", game.getPlayer().getLevel());
         font.getData().setScale(2f);
         font.draw(Main.getBatch(), levelTex, (int)(Gdx.graphics.getWidth() / 2) - 50, Gdx.graphics.getHeight() - 15);
+
+        String killTex = String.format("x%d", game.getPlayer().getKills());
+        font.getData().setScale(2f);
+        font.draw(Main.getBatch(), killTex, Gdx.graphics.getWidth() - 80, Gdx.graphics.getHeight() - 130);
+
 
         Main.getBatch().end();
     }

@@ -5,13 +5,15 @@ import com.badlogic.gdx.audio.Music;
 import java.util.*;
 
 public class App {
-    public static final ArrayList<User> users = new ArrayList<>();
+    public static final ArrayList<User> users;
     private static User currentUser = null;
 
     private static Music music = GameAssetManager.getGameAssetManager().getMusics().get(0);
     private static int musicIndex = 0;
 
     static {
+        //users = SaveManager.load();
+        users = new ArrayList<>();
         if(music != null){
             music.play();
         }

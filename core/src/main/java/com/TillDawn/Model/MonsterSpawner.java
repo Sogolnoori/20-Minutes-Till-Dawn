@@ -49,20 +49,21 @@ public class MonsterSpawner {
                 iterator.remove();
                 continue;
             }
-            if(shooterTimers.get(monster).isFinished()){
+            if (shooterTimers.get(monster).isFinished()) {
                 //monster.shoot();
                 shooterTimers.get(monster).reset();
             }
         }
 
-        if (timeSpent * 2 >= totalTime) {}
+        if (timeSpent * 2 >= totalTime) {
+        }
     }
 
     private void spawnEyeBat() {
-        if(timeSpent < totalTime / 4){
+        if (timeSpent < totalTime / 4) {
             return;
         }
-        int amount = (int)((timeSpent * 4 - totalTime + 30) / 30);
+        int amount = (int) ((timeSpent * 4 - totalTime + 30) / 30);
         for (int i = 0; i < amount; i++) {
             newMonster(2);
             shooterTimers.put(monsters.get(monsters.size() - 1), new Timer(3));
@@ -70,20 +71,19 @@ public class MonsterSpawner {
     }
 
     private void spawnTentacle() {
-        int amount = (int)(timeSpent / 30);
+        int amount = (int) (timeSpent / 30);
         for (int i = 0; i < amount; i++) {
             newMonster(1);
         }
     }
 
-    public void newMonster(int type){
+    public void newMonster(int type) {
         Random rand = new Random();
         float x, y;
-        if(rand.nextBoolean()){
+        if (rand.nextBoolean()) {
             x = App.getCurrentGame().getMapWidth() * rand.nextFloat();
             y = App.getCurrentGame().getMapHeight() * rand.nextInt(2);
-        }
-        else{
+        } else {
             x = App.getCurrentGame().getMapWidth() * rand.nextInt(2);
             y = App.getCurrentGame().getMapHeight() * rand.nextFloat();
         }

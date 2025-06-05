@@ -16,4 +16,8 @@ public class Result {
     public String getMessage() {
         return message;
     }
+
+    public boolean isResult() {
+        return result;
+    }
 }

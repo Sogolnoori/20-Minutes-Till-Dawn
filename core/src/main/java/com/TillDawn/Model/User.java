@@ -1,7 +1,5 @@
 package com.TillDawn.Model;
 
-import com.TillDawn.Main;
-
 import java.util.Random;
 
 public class User {

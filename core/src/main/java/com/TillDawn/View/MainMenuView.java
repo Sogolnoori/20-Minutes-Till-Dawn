@@ -24,8 +24,9 @@ public class MainMenuView implements Screen {
     private final Label usernameLabel;
     private final Label scoreLabel;
 
-    private final TextButton LogOutButton;
-    private final TextButton ContinueSavedButton;
+    private final TextButton logOutButton;
+    private final TextButton continueSavedButton;
+    private final Label message;
 
     public Table table;
     private final MainMenuController controller;
@@ -41,8 +42,9 @@ public class MainMenuView implements Screen {
         this.usernameLabel = new Label(App.getCurrentUser().getUsername(), skin);
         this.scoreLabel = new Label("Your Score: " + "100", skin);
 
-        this.LogOutButton = new TextButton("LOGOUT", skin);
-        this.ContinueSavedButton = new TextButton("SAVED GAME", skin);
+        this.logOutButton = new TextButton("LOGOUT", skin);
+        this.continueSavedButton = new TextButton("SAVED GAME", skin);
+        this.message = new Label("", skin);
 
         this.table = new Table();
 
@@ -75,8 +77,9 @@ public class MainMenuView implements Screen {
         rightTable.add(avatarImage).size(250).pad(10).top().row();
         rightTable.add(usernameLabel).pad(5).row();
         rightTable.add(scoreLabel).pad(5).center().row();
-        rightTable.add(ContinueSavedButton).pad(5).row();
-        rightTable.add(LogOutButton).pad(5).row();
+        rightTable.add(continueSavedButton).pad(5).row();
+        rightTable.add(logOutButton).pad(5).row();
+        rightTable.add(message).pad(5).row();
 
         table.add(leftTable).expand().left().top().pad(30);
         table.add(rightTable).expand().right().top().pad(200);
@@ -140,10 +143,14 @@ public class MainMenuView implements Screen {
     }
 
     public TextButton getLogOutButton() {
-        return LogOutButton;
+        return logOutButton;
     }
 
     public TextButton getContinueSavedButton() {
-        return ContinueSavedButton;
+        return continueSavedButton;
+    }
+
+    public Label getMessage() {
+        return message;
     }
 }
