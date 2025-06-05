@@ -53,6 +53,22 @@ public class GameController {
                 Main.getMain().getScreen().dispose();
                 Main.getMain().setScreen(new PauseMenuView(new PauseMenuController(), GameAssetManager.getGameAssetManager().getSkin()));
             }
+            if(Gdx.input.isKeyJustPressed(Input.Keys.T)){
+                game.updateTimeSpent(60);
+            }
+            if(Gdx.input.isKeyJustPressed(Input.Keys.L)){
+                game.getPlayer().addXp(game.getPlayer().getXpNeeded() - game.getPlayer().getXp());
+            }
+            if(Gdx.input.isKeyJustPressed(Input.Keys.H)){
+                if(game.getPlayer().getPlayerHealth() < game.getPlayer().getHeroEnum().getHp()) {
+                    App.getCurrentGame().getPlayer().addHealth();
+                }
+            }
+            if(Gdx.input.isKeyJustPressed(Input.Keys.K)){
+                for (int i = 0; i < 10000; i ++){
+                    App.getCurrentGame().getPlayer().addKills();
+                }
+            }
             worldController.update();
             playerController.update();
             weaponController.update();
@@ -98,9 +114,18 @@ public class GameController {
             return;
         }
         for (Monster monster : game.getMonsters()) {
+            if(monster.isDying()) continue;
             if(monster.getRect().collidesWith(game.getPlayer().getRect())){
                 game.getPlayer().reduceHealth();
                 game.getPlayer().setInvisibleTimeLeft(1);
+                break;
+            }
+        }
+        for (Projectile shot : game.getMonsterShots()) {
+            if(shot.getRect().collidesWith(game.getPlayer().getRect())){
+                game.getPlayer().reduceHealth();
+                game.getPlayer().setInvisibleTimeLeft(1);
+                game.getMonsterShots().remove(shot);
                 break;
             }
         }

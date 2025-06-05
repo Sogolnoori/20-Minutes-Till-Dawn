@@ -117,7 +117,7 @@ public class MonsterController {
 
     public void updateMonsterShots() {
         for(Projectile b : monsterShots) {
-            b.setXPos(b.getSprite().getX() - b.getDirection().x);
+            b.setXPos(b.getSprite().getX() + b.getDirection().x);
             b.setYPos(b.getSprite().getY() + b.getDirection().y);
 
             b.getSprite().setX(b.getXPos());

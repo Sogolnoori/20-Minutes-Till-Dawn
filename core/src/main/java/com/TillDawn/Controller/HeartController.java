@@ -24,6 +24,9 @@ public class HeartController {
             if(App.getCurrentGame().getPlayer().getPlayerHealth() <= i){
                 hearts.get(i).setActive(false);
             }
+            else {
+                hearts.get(i).setActive(true);
+            }
         }
         for (Heart heart : hearts) {
             if(heart.isActive()) {

@@ -138,6 +138,10 @@ public class Player {
         this.playerHealth -= 1;
     }
 
+    public void addHealth(){
+        this.playerHealth ++;
+    }
+
     public float getInvisibleTimeLeft() {
         return invisibleTimeLeft;
     }

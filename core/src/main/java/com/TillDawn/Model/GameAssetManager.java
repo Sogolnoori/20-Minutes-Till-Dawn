@@ -57,8 +57,8 @@ public class GameAssetManager {
         }
     }
 
-    private final String monsterProjectile = "Monsters/MonsterProjectile.png";
-    private final Texture monsterProjectileTexture = new Texture(monsterProjectile);
+    private final String monsterShot = "Monsters/MonsterShot.png";
+    private final Texture monsterShotTex = new Texture(monsterShot);
 
     private final ArrayList<String> weapons = new ArrayList<>(Arrays.asList("REVOLVER", "SHOTGUN", "SMG"));
     private final ArrayList<String> weaponImg = new ArrayList<>();
@@ -77,7 +77,7 @@ public class GameAssetManager {
     private final Texture backslash = new Texture("Weapons/Counter/Backslash.png");
 
     {
-        for (int i = 0; i < 16; i++) {
+        for (int i = 0; i < 28; i++) {
             numbers.add(new Texture("Weapons/Counter/" + i  + ".png"));
         }
     }
@@ -186,12 +186,12 @@ public class GameAssetManager {
         return monsterAnimations;
     }
 
-    public String getMonsterProjectile() {
-        return monsterProjectile;
+    public String getMonsterShot() {
+        return monsterShot;
     }
 
-    public Texture getMonsterProjectileTexture() {
-        return monsterProjectileTexture;
+    public Texture getMonsterShotTex() {
+        return monsterShotTex;
     }
 
     public ArrayList<String> getHeartImg() {

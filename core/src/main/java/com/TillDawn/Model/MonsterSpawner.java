@@ -1,5 +1,8 @@
 package com.TillDawn.Model;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.math.Vector2;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -9,6 +12,7 @@ public class MonsterSpawner {
 
     private final ArrayList<Monster> monsters;
     private final HashMap<Monster, Timer> shooterTimers;
+    private final ArrayList<Projectile> monsterShots;
 
     private static final float tentacleSpawnInterval = 3.0f;
     private static final float eyeBatSpawnInterval = 10.0f;
@@ -18,8 +22,9 @@ public class MonsterSpawner {
     private float timeSpent = 0f;
     private final float totalTime;
 
-    public MonsterSpawner(ArrayList<Monster> monsters, float totalTime) {
+    public MonsterSpawner(ArrayList<Monster> monsters, ArrayList<Projectile> monsterShots, float totalTime) {
         this.monsters = monsters;
+        this.monsterShots = monsterShots;
         this.totalTime = totalTime;
         this.tentacleTimer = new Timer(tentacleSpawnInterval);
         this.eyeBatTimer = new Timer(eyeBatSpawnInterval);
@@ -42,18 +47,7 @@ public class MonsterSpawner {
             tentacleTimer.reset();
         }
 
-        Iterator<Monster> iterator = shooterTimers.keySet().iterator();
-        while (iterator.hasNext()) {
-            Monster monster = iterator.next();
-            if (monster.isDying()) {
-                iterator.remove();
-                continue;
-            }
-            if (shooterTimers.get(monster).isFinished()) {
-                //monster.shoot();
-                shooterTimers.get(monster).reset();
-            }
-        }
+        updateEyeBatShots(deltaTime);
 
         if (timeSpent * 2 >= totalTime) {
         }
@@ -66,7 +60,7 @@ public class MonsterSpawner {
         int amount = (int) ((timeSpent * 4 - totalTime + 30) / 30);
         for (int i = 0; i < amount; i++) {
             newMonster(2);
-            shooterTimers.put(monsters.get(monsters.size() - 1), new Timer(3));
+            shooterTimers.put(monsters.get(monsters.size() - 1), new Timer(6));
         }
     }
 
@@ -89,5 +83,32 @@ public class MonsterSpawner {
         }
         Monster monster = new Monster(type, x, y);
         monsters.add(monster);
+    }
+
+    public void updateEyeBatShots(float deltaTime) {
+        Iterator<Monster> iterator = shooterTimers.keySet().iterator();
+        while (iterator.hasNext()) {
+            Monster monster = iterator.next();
+            if (monster.isDying()) {
+                iterator.remove();
+                continue;
+            }
+            shooterTimers.get(monster).update(deltaTime);
+            if (shooterTimers.get(monster).isFinished()) {
+                shoot(monster);
+                shooterTimers.get(monster).reset();
+            }
+        }
+    }
+
+    public void shoot(Monster monster) {
+        float xStart = monster.getPosX();
+        float yStart = monster.getPosY();
+        Vector2 direction = new Vector2(
+            App.getCurrentGame().getPlayer().getPosX() - xStart,
+            App.getCurrentGame().getPlayer().getPosY() - yStart).nor();
+
+        Projectile shot = new Projectile(xStart, yStart, direction, GameAssetManager.getGameAssetManager().getMonsterShotTex());
+        monsterShots.add(shot);
     }
 }

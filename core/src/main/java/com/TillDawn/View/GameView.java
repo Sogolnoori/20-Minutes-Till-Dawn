@@ -78,9 +78,6 @@ public class GameView implements Screen,  InputProcessor {
 
         game.getWeapon().getSmgSprite().draw(Main.getBatch());
         player.getPlayerSprite().draw(Main.getBatch());
-        for (Monster monster : game.getMonsters()) {
-            monster.getMonsterSprite().draw(Main.getBatch());
-        }
 
         for(Projectile monsterShot : game.getMonsterShots()){
             monsterShot.getSprite().draw(Main.getBatch());
@@ -88,6 +85,10 @@ public class GameView implements Screen,  InputProcessor {
 
         for(Projectile droplet : game.getDroplets()){
             droplet.getSprite().draw(Main.getBatch());
+        }
+
+        for (Monster monster : game.getMonsters()) {
+            monster.getMonsterSprite().draw(Main.getBatch());
         }
 
         Main.getBatch().end();

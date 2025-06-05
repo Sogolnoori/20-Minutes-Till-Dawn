@@ -38,7 +38,7 @@ public class Game {
         this.droplets = new ArrayList<>();
         this.ammoCounter = new AmmoCounter(weapon.getWeaponEnum().getAmmo());
         this.monsters = new ArrayList<>();
-        this.monsterSpawner = new MonsterSpawner(monsters, time);
+        this.monsterSpawner = new MonsterSpawner(monsters, monsterShots, time);
         this.hearts = new ArrayList<>();
         this.addHearts();
     }

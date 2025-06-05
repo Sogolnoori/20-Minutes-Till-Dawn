@@ -19,6 +19,20 @@ public class PauseMenuView implements Screen {
     private final TextButton giveUpButton;
     private final TextButton saveButton;
 
+    private final Label cheatLabel;
+    private final Label cheatCode1;
+    private final Label cheatCode2;
+    private final Label cheatCode3;
+    private final Label cheatCode4;
+    private final Label cheatCode5;
+
+    private final Label abilityLabel;
+    private final Label vitality;
+    private final Label damager;
+    private final Label procrease;
+    private final Label amocrease;
+    private final Label speedy;
+
     public PauseMenuView(PauseMenuController controller, Skin skin) {
         this.controller = controller;
         this.table = new Table();
@@ -26,6 +40,20 @@ public class PauseMenuView implements Screen {
         this.resumeButton = new TextButton("Resume", skin);
         this.giveUpButton = new TextButton("Give Up:(", skin);
         this.saveButton = new TextButton("Save and Exit", skin);
+
+        this.cheatLabel = new Label("CHEAT CODES:", skin);
+        this.cheatCode1 = new Label("Reduce Time : T", skin);
+        this.cheatCode2 = new Label("Level Up : L", skin);
+        this.cheatCode3 = new Label("More Hearts : H", skin);
+        this.cheatCode4 = new Label("Boss Fight : B", skin);
+        this.cheatCode5 = new Label("Add Kills : K", skin);
+
+        this.abilityLabel = new Label("ABILITIES:", skin);
+        this.vitality = new Label("Vitality", skin);
+        this.damager = new Label("Damager", skin);
+        this.procrease = new Label("Procrease", skin);
+        this.amocrease = new Label("Amocrese", skin);
+        this.speedy = new Label("Speedy", skin);
 
         controller.setView(this);
     }
@@ -37,10 +65,36 @@ public class PauseMenuView implements Screen {
 
         table.setFillParent(true);
         table.center();
-        table.row().pad(10, 0, 10, 0);
-        table.add(resumeButton).row();
-        table.add(giveUpButton).row();
-        table.add(saveButton).row();
+
+        Table rightTable = new Table();
+        rightTable.row().pad(10, 0, 10, 0);
+        rightTable.add(resumeButton).row();
+        rightTable.add(giveUpButton).row();
+        rightTable.add(saveButton).row();
+
+        Table leftTable = new Table();
+
+        Table cheatTable = new Table();
+        cheatTable.row().pad(10, 0, 10, 0);
+        cheatTable.add(cheatLabel).row();
+        cheatTable.add(cheatCode1).row();
+        cheatTable.add(cheatCode1).row();
+        cheatTable.add(cheatCode2).row();
+        cheatTable.add(cheatCode3).row();
+        cheatTable.add(cheatCode4).row();
+        cheatTable.add(cheatCode5).row();
+
+        Table abilityTable = new Table();
+
+        abilityTable.row().pad(10, 0, 10, 0);
+        abilityTable.add(abilityLabel).row();
+
+        leftTable.row().pad(10, 0, 10, 0);
+        leftTable.add(abilityTable).pad(0, 0, 125, 0).top().row();
+        leftTable.add(cheatTable).row();
+
+        table.add(leftTable).left().padRight(300);
+        table.add(rightTable).right();
 
         stage.addActor(table);
     }
