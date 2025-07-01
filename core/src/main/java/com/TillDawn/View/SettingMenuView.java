@@ -54,9 +54,11 @@ public class SettingMenuView implements Screen {
         autoReloadButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                boolean newState = !App.getCurrentGame().getWeapon().isAutoReload();
-                App.getCurrentGame().getWeapon().setAutoReload(newState);
-                autoReloadButton.setText("AUTO-RELOAD : " + (newState ? "ON" : "OFF"));
+                if(App.getCurrentGame() != null){
+                    boolean newState = !App.getCurrentGame().getWeapon().isAutoReload();
+                    App.getCurrentGame().getWeapon().setAutoReload(newState);
+                    autoReloadButton.setText("AUTO-RELOAD : " + (newState ? "ON" : "OFF"));
+                }
             }
         });
         volumeSlider.setValue(1f);
@@ -85,9 +87,11 @@ public class SettingMenuView implements Screen {
                 Gdx.input.setInputProcessor(new InputAdapter() {
                     @Override
                     public boolean keyDown(int keycode) {
-                        Controls.set("up", keycode);
-                        upKeyButton.setText("Up: " + Input.Keys.toString(keycode));
-                        Gdx.input.setInputProcessor(stage);
+                        if(!Controls.inUse(keycode)) {
+                            Controls.set("up", keycode);
+                            upKeyButton.setText("Up: " + Input.Keys.toString(keycode));
+                            Gdx.input.setInputProcessor(stage);
+                        }
                         return true;
                     }
                 });
@@ -100,9 +104,11 @@ public class SettingMenuView implements Screen {
                 Gdx.input.setInputProcessor(new InputAdapter() {
                     @Override
                     public boolean keyDown(int keycode) {
-                        Controls.set("down", keycode);
-                        downKeyButton.setText("Down: " + Input.Keys.toString(keycode));
-                        Gdx.input.setInputProcessor(stage);
+                        if(!Controls.inUse(keycode)) {
+                            Controls.set("down", keycode);
+                            downKeyButton.setText("Down: " + Input.Keys.toString(keycode));
+                            Gdx.input.setInputProcessor(stage);
+                        }
                         return true;
                     }
                 });
@@ -115,9 +121,11 @@ public class SettingMenuView implements Screen {
                 Gdx.input.setInputProcessor(new InputAdapter() {
                     @Override
                     public boolean keyDown(int keycode) {
-                        Controls.set("right", keycode);
-                        rightKeyButton.setText("Right: " + Input.Keys.toString(keycode));
-                        Gdx.input.setInputProcessor(stage);
+                        if(!Controls.inUse(keycode)) {
+                            Controls.set("right", keycode);
+                            rightKeyButton.setText("Right: " + Input.Keys.toString(keycode));
+                            Gdx.input.setInputProcessor(stage);
+                        }
                         return true;
                     }
                 });
@@ -130,9 +138,11 @@ public class SettingMenuView implements Screen {
                 Gdx.input.setInputProcessor(new InputAdapter() {
                     @Override
                     public boolean keyDown(int keycode) {
-                        Controls.set("left", keycode);
-                        leftKeyButton.setText("Left: " + Input.Keys.toString(keycode));
-                        Gdx.input.setInputProcessor(stage);
+                        if(!Controls.inUse(keycode)) {
+                            Controls.set("left", keycode);
+                            leftKeyButton.setText("Left: " + Input.Keys.toString(keycode));
+                            Gdx.input.setInputProcessor(stage);
+                        }
                         return true;
                     }
                 });

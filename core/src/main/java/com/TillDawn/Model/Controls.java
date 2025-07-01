@@ -21,4 +21,8 @@ public class Controls {
     public static void set(String action, int keycode) {
         keys.put(action, keycode);
     }
+
+    public static boolean inUse(Integer keycode) {
+        return keys.containsValue(keycode);
+    }
 }
